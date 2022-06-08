@@ -6,7 +6,7 @@
 {% block body %}
 
 	<div class="card">
-	<br>
+		<br>
 		<div class="card-hearder text-center">
 			<h2>Gestion des categories</h2>
 		</div>
@@ -38,4 +38,11 @@
 			</table>
 		</div>
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).ready(function () {
+$('#example').DataTable();
+});
+	</script>
 {% endblock %}

@@ -12,8 +12,7 @@
 		<meta
 		name="author" content="codedthemes"/>
 		<!-- Favicon icon -->
-		<link
-		rel="icon" href="{{ asset("assets/images/favicon.ico") }}" type="image/x-icon">
+		<link rel="icon" href="{{ asset("assets/images/favicon.ico") }}" type="image/x-icon">
 		<!-- Google font-->
 		<link
 		href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
@@ -40,6 +39,9 @@
 		rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
 		<!-- Style.css -->
 		<link rel="stylesheet" type="text/css" href="{{ asset("assets/css/style.css") }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+		<link
+		rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 	</head>
 
 	<body>
@@ -243,12 +245,12 @@
 										</a>
 									</li>
 									<li class="pcoded-hasmenu">
-										<a href="" class="waves-effect waves-dark">
+										<a href="{{ path("admin_categorie") }}" class="waves-effect waves-dark">
 											<span class="pcoded-mtext" data-i18n="nav.basic-components.ma"></span>Categorie
 										</a>
 									</li>
 									<li class="pcoded-hasmenu">
-										<a href="" class="waves-effect waves-dark">
+										<a href="{{ path("admin_ville") }}" class="waves-effect waves-dark">
 											<span class="pcoded-mtext" data-i18n="nav.basic-components.ma"></span>Ville
 										</a>
 									</li>
@@ -302,13 +304,12 @@
 										<!-- Page-body start -->
 
 										<div class="page-body">
-												{% for message in app.flashes("success") %}
-													<div class="btn btn-success">
-														{{message}}
-													</div>
-												{% endfor %}
-											{% block body %}
-											{% endblock %}
+											{% for message in app.flashes("success") %}
+												<div class="btn btn-success">
+													{{message}}
+												</div>
+											{% endfor %}
+											{% block body %}{% endblock %}
 										</div>
 										<!-- Page-body end -->
 									</div>
@@ -353,5 +354,6 @@
 		<script type="text/javascript" src="{{ asset("assets/pages/dashboard/custom-dashboard.js") }}"></script>
 		<script type="text/javascript" src="{{ asset("assets/js/script.js") }} "></script>
 	</body>
+	{% block javascripts %}{% endblock %}
 
 </html>
