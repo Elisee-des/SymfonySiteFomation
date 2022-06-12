@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Formation;
 use App\Entity\User;
+use App\Form\EditFormationType;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use App\Services\UploaderService;
@@ -25,7 +26,7 @@ class FormationController extends AbstractController
     {
         
         return $this->render('admin/formation/index.html.twig', [
-            'formations' => $formationRepository->find
+            'formations' => $formationRepository->findAll()
         ]);
     }
 
@@ -74,7 +75,7 @@ class FormationController extends AbstractController
     public function edition(Request $request, Formation $formation, EntityManagerInterface $em): Response
     {
 
-        $form = $this->createForm(FormationType::class, $formation);
+        $form = $this->createForm(EditFormationType::class, $formation);
 
         $form->handleRequest($request);
 
