@@ -74,6 +74,7 @@ class Formation
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
+        $this->datePublication = new \DateTime();
     }
 
     public function getId(): ?int

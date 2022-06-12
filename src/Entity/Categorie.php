@@ -29,6 +29,11 @@ class Categorie
      */
     private $formations;
 
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
