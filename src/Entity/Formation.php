@@ -54,11 +54,6 @@ class Formation
      */
     private $datePublication;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="formations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $users;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="formations")
@@ -70,6 +65,11 @@ class Formation
      * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="formation", orphanRemoval=true)
      */
     private $candidatures;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActif;
 
     public function __construct()
     {
@@ -216,6 +216,18 @@ class Formation
                 $candidature->setFormation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsActif(): ?bool
+    {
+        return $this->isActif;
+    }
+
+    public function setIsActif(?bool $isActif): self
+    {
+        $this->isActif = $isActif;
 
         return $this;
     }

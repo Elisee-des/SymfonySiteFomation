@@ -65,13 +65,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="users", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="user", orphanRemoval=true)
      */
-    private $formations;
+    private $candidatures;
 
     public function __construct()
     {
         $this->formations = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -247,6 +248,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($formation->getUsers() === $this) {
                 $formation->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getUser() === $this) {
+                $candidature->setUser(null);
             }
         }
 

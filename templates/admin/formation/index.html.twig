@@ -18,11 +18,23 @@
 			<table id="example" class="table table-striped nowrap" style="width:100%">
 				<thead>
 					<tr>
-						<th>ID</th>
+						<th>Titre</th>
+						<th>Description</th>
+						<th>Place</th>
+						<th>DatePublication</th>
+						<th>DateDebut</th>
+						<th>DateFin</th>
 					</tr>
 				</thead>
 				<tbody>
-					
+				{% for formation in formations %}
+					<td>{{formation.titre}}</td>
+					<td>{{formation.description|slice(0, 50)}}</td>
+					<td>{{formation.nombrePlace}}</td>
+					<td>{{formation.datePublication}}</td>
+					<td>{{formation.dateDebutFormation}}</td>
+					<td>{{formation.dateFinFormation}}</td>
+				{% endfor %}
 				</tbody>
 			</table>
 		</div>
