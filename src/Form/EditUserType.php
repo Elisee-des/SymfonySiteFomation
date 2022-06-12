@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class UserType extends AbstractType
+class EditUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -34,7 +34,7 @@ class UserType extends AbstractType
                 "second_options" => [
                     "label" => "Repeter le mot de passe",
                 ],
-                "invalid_message" => "Veuaille entrez un mot de passe valide"
+                "invalid_message" => "Veuillez entrez un mot de passe valide"
             ])
             ->add('email')
             ->add('telephone')
@@ -64,7 +64,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('ville')
-            ->add('Creer', SubmitType::class);
+            ->add('Modifier', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
