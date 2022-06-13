@@ -49,6 +49,7 @@ class Candidature
     public function __construct()
     {
         $this->pieceJointe = new ArrayCollection();
+        $this->dateCretion = new \DateTime();
     }
 
     public function getId(): ?int

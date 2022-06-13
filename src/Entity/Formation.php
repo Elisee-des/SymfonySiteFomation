@@ -71,6 +71,11 @@ class Formation
      */
     private $isActif;
 
+    public function __toString()
+    {
+        return $this->titre;
+    }
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
