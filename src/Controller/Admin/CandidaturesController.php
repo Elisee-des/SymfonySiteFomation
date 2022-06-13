@@ -43,7 +43,7 @@ class CandidaturesController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            dd($request->files->);
+           
 
             $fichiers = $form->get('fichiers')->getData();
             
