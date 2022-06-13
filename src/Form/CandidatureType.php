@@ -60,7 +60,7 @@ class CandidatureType extends AbstractType
                         "maxSize" => "2M",
                         "mimeTypes" => [
                             "image/jpeg",
-                            "image/jng"
+                            "image/png"
                         ]
                     ]),
                     // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"

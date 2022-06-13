@@ -6,6 +6,7 @@ use App\Entity\Candidature;
 use App\Entity\PieceJointe;
 use App\Form\CandidaturesType;
 use App\Form\CandidatureType;
+use App\Form\EditCandidaturesType;
 use App\Form\EditCandidatureType;
 use App\Repository\CandidatureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,7 +49,6 @@ class CandidaturesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $fichiers = $request->files->get("candidature")["fichiers"];
-            // dd($fichiers);  
 
             $nouveauNom = $nom . "." . $fichiers->guessExtension();
 
@@ -79,15 +79,16 @@ class CandidaturesController extends AbstractController
      */
     public function edition(Candidature $candidature, PieceJointe $pieceJointe, EntityManagerInterface $em, Request $request): Response
     {
-        $nom = uniqid();
-
-        $form = $this->createForm(EditCandidatureType::class, $candidature);
-
+        // dd($candidature);
+        $form = $this->createForm(EditCandidaturesType::class, $candidature);
+        
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $fichiers = $request->files->get("candidature")["fichiers"];
+            
+            $nom = uniqid();
+            $fichiers = $request->files->get("edit_candidatures")["fichier"];
+            // dd($fichiers);
 
             $nouveauNom = $nom . "." . $fichiers->guessExtension();
 
