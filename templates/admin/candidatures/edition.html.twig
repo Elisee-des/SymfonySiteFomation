@@ -1,13 +1,13 @@
 {% extends "base.admin.html.twig" %}
 
-{% block titre %}Editer la utilisateur
+{% block titre %}Editer la candidature {{nom}}
 {% endblock %}
 
 {% block body %}
 
 	<div class="card">
 		<div class="card-body float-center">
-			<h2>Modifier la utilisateur</h2><br>
+			<h2>Modifier la candidature</h2><br>
         {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
 		{{ form(form) }}
 		</div>

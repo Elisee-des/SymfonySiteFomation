@@ -5,7 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Candidature;
 use App\Entity\PieceJointe;
 use App\Form\CandidaturesType;
+use App\Form\CandidatureType;
+use App\Form\EditCandidatureType;
 use App\Repository\CandidatureRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,51 +20,114 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidaturesController extends AbstractController
 {
     /**
-     * @Route("/liste", name="liste")
+     * @Route("/liste/", name="liste")
      */
     public function index(CandidatureRepository $candidatureRepository): Response
     {
+
         return $this->render('admin/candidatures/index.html.twig', [
-            'candidatures' => $candidatureRepository->findAll(),
+            'candidatures' => $candidatureRepository->findAll(["id" => "DESC"]),
         ]);
     }
 
     /**
      * @Route("/creation", name="creation")
      */
-    public function creation(CandidatureRepository $candidatureRepository, Request $request): Response
+    public function creation(EntityManagerInterface $em, Request $request): Response
     {
         $candidature = new Candidature();
 
-        $fichier = new PieceJointe();
-        
+        $pieceJointe = new PieceJointe();
+
         $nom = uniqid();
-        
-        $form = $this->createForm(CandidaturesType::class, $candidature);
-        
+
+        $form = $this->createForm(CandidatureType::class, $candidature);
+
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-           
+            $fichiers = $request->files->get("candidature")["fichiers"];
+            // dd($fichiers);  
 
-            $fichiers = $form->get('fichiers')->getData();
-            
-            $nouveauNom = $nom.".".$fichiers->guessExtension();
-            
+            $nouveauNom = $nom . "." . $fichiers->guessExtension();
+
             $fichiers->move($this->getParameter("fichiers_directory"), $nouveauNom);
 
-            dd($nouveauNom);
+            $pieceJointe->setCandidature($candidature);
+            $pieceJointe->setFichiers($nouveauNom);
 
-            $fichier->setFichiers($fichiers);
-            
-            // $test = $candidature->getPieceJointe()->($fichiers);
+            $em->persist($pieceJointe);
+            $em->persist($candidature);
+            $em->flush();
 
-            
+            return $this->redirectToRoute('admin_candidature_liste');
+
+            $this->addFlash(
+                'success',
+                "la candidature" . $candidature->getId() . " a ete ajouter avec success"
+            );
         }
 
         return $this->render('admin/candidatures/creation.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/edition/{id}", name="edition")
+     */
+    public function edition(Candidature $candidature, PieceJointe $pieceJointe, EntityManagerInterface $em, Request $request): Response
+    {
+        $nom = uniqid();
+
+        $form = $this->createForm(EditCandidatureType::class, $candidature);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $fichiers = $request->files->get("candidature")["fichiers"];
+
+            $nouveauNom = $nom . "." . $fichiers->guessExtension();
+
+            $fichiers->move($this->getParameter("fichiers_directory"), $nouveauNom);
+
+            $pieceJointe->setCandidature($candidature);
+            $pieceJointe->setFichiers($nouveauNom);
+
+            $em->persist($pieceJointe);
+            $em->persist($candidature);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_candidature_liste');
+
+            $this->addFlash(
+                'success',
+                "la candidature" . $candidature->getId() . " a ete modifier avec success"
+            );
+        }
+
+        return $this->render('admin/candidatures/edition.html.twig', [
+            'form' => $form->createView(),
+            "nomCandidature"=>$candidature->getNom()
+        ]);
+    }
+
+    /**
+     * @Route("/suppresion/{id}", name="suppression")
+     */
+    public function suppression(Candidature $candidature, EntityManagerInterface $em, Request $request): Response
+    {
+       
+            $em->remove($candidature);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_candidature_liste');
+
+            $this->addFlash(
+                'success',
+                "la candidature" . $candidature->getId() . " a ete suppreimé avec success"
+            );
     }
 }
