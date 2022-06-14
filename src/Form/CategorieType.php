@@ -16,6 +16,8 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('description')
+            ->add('petitedescription')
             ->add('images', FileType::class, [
                 "mapped"=>false,
                 "constraints"=>[

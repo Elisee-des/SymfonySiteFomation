@@ -20,6 +20,8 @@
 					<tr>
 						<th>Image</th>
 						<th>Nom</th>
+						<th>Description</th>
+						<th>PetiteDescription</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -32,6 +34,8 @@
 								{% endif %}
 							</td>
 							<td>{{categorie.nom}}</td>
+							<td>{{categorie.description}}</td>
+							<td>{{categorie.petitedescription}}</td>
 							<td>
 								<a href="{{ path("admin_edition_categorie", {id: categorie.id}) }}" class="btn btn-primary">Editer</a>
 								<a href="{{ path("admin_suppresion_categorie", {id: categorie.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sur de vouloir supprimer cette categorie ?')">Supprimer</a>

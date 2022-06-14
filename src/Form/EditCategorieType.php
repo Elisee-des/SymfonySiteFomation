@@ -16,6 +16,8 @@ class EditCategorieType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('description')
+            ->add('petitedescription')
             ->add('images', FileType::class, [
                 "mapped"=>false,
                 "constraints"=>[
@@ -28,7 +30,7 @@ class EditCategorieType extends AbstractType
                     ])
                 ]
             ])
-            ->add('Creer', SubmitType::class);
+            ->add('Modifier', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

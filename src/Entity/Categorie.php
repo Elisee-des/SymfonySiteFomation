@@ -34,6 +34,16 @@ class Categorie
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $petitedescription;
+
     public function __toString()
     {
         return $this->nom;
@@ -99,6 +109,30 @@ class Categorie
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPetitedescription(): ?string
+    {
+        return $this->petitedescription;
+    }
+
+    public function setPetitedescription(?string $petitedescription): self
+    {
+        $this->petitedescription = $petitedescription;
 
         return $this;
     }

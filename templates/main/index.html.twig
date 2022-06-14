@@ -2,6 +2,17 @@
 
 {% block titre %}{% endblock %}
 
-{% block body %}
+{% block categories %}
+	{% for categorie in categories %}
+		<div class="item">
+			<h4>{{categorie.description}}</h4>
+			<div class="icon">
+				<img src="{{ asset("asset/images/"~categorie.image) }}" width="20px" alt="image">
+			</div>
+			<p>{{categorie.petitedescription}}</p>
+		</div>
+	{% endfor %}
 
 {% endblock %}
+
+{% block body %}{% endblock %}
