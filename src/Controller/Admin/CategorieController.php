@@ -37,9 +37,19 @@ class CategorieController extends AbstractController
 
         $form = $this->createForm(CategorieType::class, $categorie);
 
+        $nom = uniqid();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageNom = $request->files->get("categorie")["images"];
+
+            $nouveauNom = $nom . "." . $imageNom->guessExtension();
+
+            $imageNom->move($this->getParameter("images_directory"), $nouveauNom);
+
+            $categorie->setImage($nouveauNom);
 
             $em->persist($categorie);
             $em->flush();
@@ -66,7 +76,19 @@ class CategorieController extends AbstractController
 
         $form->handleRequest($request);
 
+        $nom = uniqid();
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // dd($request);
+
+            $imageNom = $request->files->get("edit_categorie")["images"];
+
+            $nouveauNom = $nom . "." . $imageNom->guessExtension();
+
+            $imageNom->move($this->getParameter("images_directory"), $nouveauNom);
+
+            $categorie->setImage($nouveauNom);
 
             $em->persist($categorie);
             $em->flush();

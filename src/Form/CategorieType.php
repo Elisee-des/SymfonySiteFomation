@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CategorieType extends AbstractType
 {
@@ -14,6 +16,18 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('images', FileType::class, [
+                "mapped"=>false,
+                "constraints"=>[
+                    new File([
+                        "maxSize"=>"2M",
+                        "mimeTypes"=>[
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ])
+                ]
+            ])
             ->add('Creer', SubmitType::class)
         ;
     }
