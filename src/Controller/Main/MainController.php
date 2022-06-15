@@ -21,5 +21,13 @@ class MainController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * @Route("/formation", name="formation")
+     */
+    public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
+    {
+        return $this->render('main/index.html.twig', [
+            'formations' => $formationRepository->findAll(),
+        ]);
+    }
 }
