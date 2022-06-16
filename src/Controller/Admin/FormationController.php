@@ -24,9 +24,26 @@ class FormationController extends AbstractController
      */
     public function index(FormationRepository $formationRepository): Response
     {
-        
+    
         return $this->render('admin/formation/index.html.twig', [
             'formations' => $formationRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/liste/{id}", name="detail")
+     */
+    public function deatil(Formation $formation): Response
+    {
+        return $this->render('admin/formation/detail.html.twig', [
+            'titre' => $formation->getTitre(),
+            'description' => $formation->getDescription(),
+            'nombrePlace' => $formation->getNombrePlace(),
+            'datePublication' => $formation->getDatePublication(),
+            'dateDebutFormation' => $formation->getDateDebutFormation(),
+            'dateFinFormation' => $formation->getDateFinFormation(),
+            'nomCategorie' => $formation->getCategorie()->getNom(),
+            ''
         ]);
     }
 

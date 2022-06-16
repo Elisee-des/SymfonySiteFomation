@@ -35,10 +35,19 @@ class MainController extends AbstractController
     /**
      * @Route("/categories/{id}", name="detail_categories")
      */
-    public function detailCategories(Categorie $categorie): Response
+    public function detailCategories($id, CategorieRepository $categorieRepository): Response
     {
+        $categories = $categorieRepository->find($id);
+        dd($categories);
+        $formation = $categories->getFormations();
+        $nom = $categories->getNom();
+        $description = $categories->getDescription();
+        $petitedescription = $categories->getPetitedescription();
         return $this->render('main/detailCategories.html.twig', [
-            'formations' => $categorie->getFormations(),
+            "nom"=>$nom,
+            "description"=>$description,
+            "petitedescription"=>$petitedescription,
+            'formations' => $formation
         ]);
     }
 
