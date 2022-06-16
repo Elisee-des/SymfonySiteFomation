@@ -26,8 +26,10 @@ class MainController extends AbstractController
      */
     public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
     {
-        return $this->render('main/index.html.twig', [
+        return $this->render('main/formation.html.twig', [
             'formations' => $formationRepository->findAll(),
         ]);
     }
+
+    
 }

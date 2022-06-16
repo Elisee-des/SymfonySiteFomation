@@ -24,12 +24,12 @@
 		<link
 		rel="stylesheet" href="{{ asset("asset/css/owl.css") }}">
 	<!--
-	
-	TemplateMo 565 Onix Digital
-	
-	https://templatemo.com/tm-565-onix-digital
-	
-	-->
+		
+		TemplateMo 565 Onix Digital
+		
+		https://templatemo.com/tm-565-onix-digital
+		
+		-->
 	</head>
 
 	<body>
@@ -49,32 +49,37 @@
 
 		<!-- ***** Header Area Start ***** -->
 		{% include "main/includes/header.html.twig" %}
-		<!-- ***** Header Area End ***** -->
-		{% include "main/main.html.twig" %}
+		<br><br><br><br>
 
-		<div id="services" class="our-services section">
-			<div class="services-right-dec">
-				<img src="{{ asset("asset/images/services-right-dec.png") }}" alt="">
-			</div>
-			<div class="container">
-				<div class="services-left-dec">
-					<img src="{{ asset("asset/images/services-left-dec.png") }}" alt="">
+		{% block main %}
+
+			<!-- ***** Header Area End ***** -->
+			{% include "main/main.html.twig" %}
+
+			<div id="services" class="our-services section">
+				<div class="services-right-dec">
+					<img src="{{ asset("asset/images/services-right-dec.png") }}" alt="">
 				</div>
-				<div class="row">
-					<div class="col-lg-6 offset-lg-3">
-						<div class="section-heading">
-							<h2>We
-								<em>Provide</em>
-								The Best Service With
-								<span>Our Tools</span>
-							</h2>
-							<span>Our Services</span>
+				<div class="container">
+					<div class="services-left-dec">
+						<img src="{{ asset("asset/images/services-left-dec.png") }}" alt="">
+					</div>
+					<div class="row">
+						<div class="col-lg-6 offset-lg-3">
+							<div class="section-heading">
+								<h2>We
+									<em>Provide</em>
+									The Best Service With
+									<span>Our Tools</span>
+								</h2>
+								<span>Our Services</span>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="owl-carousel owl-services"> {% block categories %}{% endblock %}
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="owl-carousel owl-services">
+								{% block categories %}{% endblock %}
 							</div>
 						</div>
 					</div>
@@ -93,18 +98,24 @@
 				<img src="{{ asset("asset/images/footer-dec.png") }}" alt="">
 			</div>
 
-			{% include "main/includes/footer.html.twig" %}
+		{% endblock %}
 
-			<!-- Scripts -->
-			<script src="{{ asset("vendor/jquery/jquery.min.js") }}"></script>
-			<script src="{{ asset("vendor/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-			<script src="{{ asset("asset/js/owl-carousel.js") }}"></script>
-			<script src="{{ asset("asset/js/animation.js") }}"></script>
-			<script src="{{ asset("asset/js/imagesloaded.js") }}"></script>
-			<script src="{{ asset("asset/js/custom.js") }}"></script>
+		<br>
+		<br>
+		<br>
+		<br><br><br>
+		{% include "main/includes/footer.html.twig" %}
 
-			<script>
-				// Acc
+		<!-- Scripts -->
+		<script src="{{ asset("vendor/jquery/jquery.min.js") }}"></script>
+		<script src="{{ asset("vendor/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+		<script src="{{ asset("asset/js/owl-carousel.js") }}"></script>
+		<script src="{{ asset("asset/js/animation.js") }}"></script>
+		<script src="{{ asset("asset/js/imagesloaded.js") }}"></script>
+		<script src="{{ asset("asset/js/custom.js") }}"></script>
+
+		<script>
+			// Acc
 $(document).on("click", ".naccs .menu div", function () {
 var numberIndex = $(this).index();
 
@@ -119,6 +130,6 @@ var listItemHeight = $(".naccs ul").find("li:eq(" + numberIndex + ")").innerHeig
 $(".naccs ul").height(listItemHeight + "px");
 }
 });
-			</script>
-		</body>
-	</html>
+		</script>
+	</body>
+</html>
