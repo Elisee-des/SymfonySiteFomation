@@ -38,7 +38,7 @@ class MainController extends AbstractController
     public function detailCategories($id, CategorieRepository $categorieRepository): Response
     {
         $categories = $categorieRepository->find($id);
-        dd($categories);
+        // dd($categories);
         $formation = $categories->getFormations();
         $nom = $categories->getNom();
         $description = $categories->getDescription();
