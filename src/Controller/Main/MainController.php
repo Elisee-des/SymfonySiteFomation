@@ -2,6 +2,7 @@
 
 namespace App\Controller\Main;
 
+use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,26 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig', [
             'formations' => $formationRepository->findAll(),
             "categories" => $categorieRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/categories", name="categories")
+     */
+    public function categories(CategorieRepository $categorieRepository): Response
+    {
+        return $this->render('main/categories.html.twig', [
+            'categories' => $categorieRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/categories/{id}", name="detail_categories")
+     */
+    public function detailCategories(Categorie $categorie): Response
+    {
+        return $this->render('main/detailCategories.html.twig', [
+            'formations' => $categorie->getFormations(),
         ]);
     }
 
@@ -46,13 +67,13 @@ class MainController extends AbstractController
         $datePublication = $formation->getDatePublication();
 
         return $this->render('main/detailFormation.html.twig', [
-            "formation"=>$formation,
-            "titre"=>$titre,
-            "description"=>$description,
-            "nombrePlace"=>$nombrePlace,
-            "dateDebutFormation"=>$dateDebutFormation,
-            "dateFinFormation"=>$dateFinFormation,
-            "datePublication"=>$datePublication
+            "formation" => $formation,
+            "titre" => $titre,
+            "description" => $description,
+            "nombrePlace" => $nombrePlace,
+            "dateDebutFormation" => $dateDebutFormation,
+            "dateFinFormation" => $dateFinFormation,
+            "datePublication" => $datePublication
         ]);
     }
 }
