@@ -46,7 +46,7 @@
 								<li class="list-group-item">Date de publication: {{ formation.datePublication|date("m/d/Y") }}	</li>
 							</ul>
 							<div>
-								<a href="#" class="main-blue-button-hover btn btn-danger">Detail</a>
+								<a href="{{ path("detail_formation", {id: formation.id}) }}" class="main-blue-button-hover btn btn-danger">Detail</a>
 								<a href="#" class="main-red-button-hover btn btn-primary">Postuler</a>
 							</div>
 						</div>
@@ -59,26 +59,3 @@
 	</div>
 
 {% endblock %}
-{# {% for formation in formations %}
-		<div class="col-6">
-			<div class="card">
-				<div class="card-hearder">
-					{{formation.titre}}
-				</div>
-				<div class="body">
-					<div class="img">
-						<img src="{{ asset("images/"~formation.image)}}" alt="">
-					</div>
-					<p>Description:{{formation.description|slice(0, 100)}}</p>
-					<h2>Nombre de place:
-						{{formation.nombrePlace}}</h2>
-					<h3>Date de debut:
-						{{formation.dateDebutFormation|date("m-d-Y")}}</h3>
-					<h3>Date de fin:
-						{{formation.dateFinFormation|date("m-d-Y")}}</h3>
-				</div>
-				<small class="text-muted">Date publication:
-					{{formation.datePublication|date("m-d-Y")}}</small>
-			</div>
-		</div>
-	{% endfor %} #}

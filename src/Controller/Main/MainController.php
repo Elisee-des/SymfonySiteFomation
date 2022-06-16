@@ -31,5 +31,28 @@ class MainController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * @Route("/formation/{id}", name="detail_formation")
+     */
+    public function detailFormation($id, FormationRepository $formationRepository): Response
+    {
+        $formation = $formationRepository->find($id);
+
+        $titre = $formation->getTitre();
+        $description = $formation->getDescription();
+        $nombrePlace = $formation->getNombrePlace();
+        $dateDebutFormation = $formation->getDateDebutFormation();
+        $dateFinFormation = $formation->getDateFinFormation();
+        $datePublication = $formation->getDatePublication();
+
+        return $this->render('main/detailFormation.html.twig', [
+            "formation"=>$formation,
+            "titre"=>$titre,
+            "description"=>$description,
+            "nombrePlace"=>$nombrePlace,
+            "dateDebutFormation"=>$dateDebutFormation,
+            "dateFinFormation"=>$dateFinFormation,
+            "datePublication"=>$datePublication
+        ]);
+    }
 }
