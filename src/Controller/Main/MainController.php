@@ -38,11 +38,11 @@ class MainController extends AbstractController
     public function detailCategories($id, CategorieRepository $categorieRepository): Response
     {
         $categories = $categorieRepository->find($id);
-        // dd($categories);
         $formation = $categories->getFormations();
         $nom = $categories->getNom();
         $description = $categories->getDescription();
         $petitedescription = $categories->getPetitedescription();
+
         return $this->render('main/detailCategories.html.twig', [
             "nom"=>$nom,
             "description"=>$description,

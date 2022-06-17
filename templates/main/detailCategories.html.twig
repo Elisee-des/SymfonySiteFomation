@@ -15,12 +15,10 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="section-heading">
-						<h2>Categories de la
-							<em>formation :</em>
+						<h2>
+							<em>La formation </em>
 							<span>{{nom}}</span>
-
 						</h2>
-						<span>Our Plans</span>
 					</div>
 				</div>
 			</div>
@@ -37,8 +35,7 @@
 							<div class="card-body">
 								<h5>Description</h5><br>
 								<p class="card-text">
-									{{ formation.description|slice(0, 90) }}
-									and make up the bulk of the card's content.
+									{{ formation.description|slice(0, 100) }}
 								</p>
 							</div>
 							<ul class="list-group list-group-flush">
@@ -61,7 +58,6 @@
 							</div>
 						</div>
 					</div>
-
 				{% endfor %}
 			</div>
 
