@@ -52,7 +52,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/formation", name="formation")
+     * @Route("/formation", name="formations")
      */
     public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
     {
