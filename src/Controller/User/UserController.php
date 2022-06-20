@@ -5,6 +5,7 @@ namespace App\Controller\User;
 use App\Entity\Candidature;
 use App\Entity\PieceJointe;
 use App\Form\PostuleFormationType;
+use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,17 +25,18 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/formations/postuler/{id}", name="user_postule_foramtion")
+     * @Route("/utilisateur/formations/postuler/{id}", name="user_postule_foramtion")
      */
-    public function postul(Request $request, EntityManagerInterface $em): Response
+    public function postul(Request $request, EntityManagerInterface $em, FormationRepository $formationRepository, $id): Response
     {
         $candidature = new Candidature();
         $fichiers = new PieceJointe();
-
+        $formation = $formationRepository->find($id);
         $form = $this->createForm(PostuleFormationType::class, $candidature);
 
         $user = $this->getUser();
         $candidature->setUser($user);
+        $candidature->setFormation($formation);
         $form->handleRequest($request);
         $nom = md5(uniqid());
 
@@ -47,16 +49,17 @@ class UserController extends AbstractController
                 $nomFichier->move($this->getParameter("images_directory"), $nouveauNom);
             }
 
-            $fichiers->setCandidature($candidature);
             $fichiers->setFichiers($nouveauNom);
+            $fichiers->setCandidature($candidature);
+
             $em->persist($fichiers);
             $em->persist($candidature);
-            dd($fichiers);
+            
             $em->flush();
 
             $this->addFlash(
                 'success',
-                'Vous avez posuler avec succes a cette formation.nous vous concterons apres selection de dossier'
+                'Vous avez posuler avec succes a cette formation.Nous vous concterons apres selection de dossier'
             );
 
             return $this->redirectToRoute('formations');
@@ -64,7 +67,7 @@ class UserController extends AbstractController
 
         return $this->render('user/candidature.html.twig', [
             'form' => $form->createView(),
-            // 'formation' => $formation
+            // 'titre' => $formation->getTitre()
         ]);
     }
 }

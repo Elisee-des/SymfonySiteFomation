@@ -49,11 +49,6 @@ class Candidature
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $fichiers;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $nom;
 
     /**
@@ -156,18 +151,6 @@ class Candidature
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getFichiers(): ?string
-    {
-        return $this->fichiers;
-    }
-
-    public function setFichiers(string $fichiers): self
-    {
-        $this->fichiers = $fichiers;
 
         return $this;
     }
