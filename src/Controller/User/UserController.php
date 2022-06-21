@@ -8,9 +8,11 @@ use App\Form\ContactType;
 use App\Form\PostuleFormationType;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -36,11 +38,27 @@ class UserController extends AbstractController
     /**
      * @Route("/utilisateur/contact/email", name="utilisateur_contact_email")
      */
-    public function contactEmail(Request $request): Response
+    public function contactEmail(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ContactType::class);
 
-        $form->handleRequest($request);
+        $contact = $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $email = (new TemplatedEmail())
+            ->from($contact->get('email')->getData())
+            ->to("mondomain@gmail.com")
+            ->subject("Test Mail")
+            ->htmlTemplate("user/contact/emailModel.html.twig")
+            ->context([
+                'mail' => $contact->get("email")->getData(),
+                'sujet' => $contact->get("sujet")->getData(),
+                'message' => $contact->get("message")->getData()
+            ])
+            ;
+
+            $mailer->send($email);
+        }
 
         return $this->render('user/contact/email.html.twig', [
             "form"=>$form->createView()
