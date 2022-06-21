@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Entity\Candidature;
 use App\Entity\PieceJointe;
+use App\Form\ContactType;
 use App\Form\PostuleFormationType;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,9 +36,15 @@ class UserController extends AbstractController
     /**
      * @Route("/utilisateur/contact/email", name="utilisateur_contact_email")
      */
-    public function contactEmail(): Response
+    public function contactEmail(Request $request): Response
     {
-        return $this->render('user/contact/email.html.twig', []);
+        $form = $this->createForm(ContactType::class);
+
+        $form->handleRequest($request);
+
+        return $this->render('user/contact/email.html.twig', [
+            "form"=>$form->createView()
+        ]);
     }
 
     /**

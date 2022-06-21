@@ -83,6 +83,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.12"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -236,6 +248,15 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/google-mailer": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "f8fd4ddb9b477510f8f4bce2b9c054ab428c0120"
+        }
     },
     "symfony/http-client": {
         "version": "v5.4.8"

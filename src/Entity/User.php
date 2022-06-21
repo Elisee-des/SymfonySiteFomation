@@ -89,6 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->formations = new ArrayCollection();
         $this->candidatures = new ArrayCollection();
         $this->dateCreation = new \DateTime();
+        $this->emails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,6 +321,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Email>
+     */
+    public function getEmails(): Collection
+    {
+        return $this->emails;
+    }
+
+    public function addEmail(Email $email): self
+    {
+        if (!$this->emails->contains($email)) {
+            $this->emails[] = $email;
+            $email->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmail(Email $email): self
+    {
+        if ($this->emails->removeElement($email)) {
+            // set the owning side to null (unless already changed)
+            if ($email->getUser() === $this) {
+                $email->setUser(null);
+            }
+        }
 
         return $this;
     }
