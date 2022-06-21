@@ -2,26 +2,36 @@
 
 {% block titre %}{% endblock %}
 
-{% block main %}
+{% block body %}
 
-	<div>
+	<div id="pricing" class="pricing-tables text-center">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="section-heading">
-						<h2>Nous
-							<em>Contacter</em>
-							par
-							<span>email</span> ou par
-                            <em>SMS</em>
-						</h2>
+				<div class="text-center">
+					<h2>Nous contacter
+					</h2>
+			</div>
+				<br><br><br><br>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<a href="{{ path("utilisateur_contact_email") }}" class="btn btn-primary ">
+							<div class="card-body"></div>
+							<h2>Par Email</h2>
+						</a>
+					</div>
+					<br><br>
+					<div class="col-lg-6">
+						<a href="" class="btn btn-primary">
+							<div class="card-body"></div>
+							<h2>Par SMS</h2>
+						</a>
 					</div>
 				</div>
 			</div>
-			</div>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}
 
-	{# {% form_theme form "bootstrap_4_layout.html.twig" %}
+{# {% form_theme form "bootstrap_4_layout.html.twig" %}
 		
 		{{ form(form) }} #}
