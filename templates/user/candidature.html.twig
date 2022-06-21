@@ -4,41 +4,35 @@
 
 {% block main %}
 
-	<div id="pricing" class="pricing-tables">
-		<div class="tables-left-dec">
+	<div>
+		{# <div class="tables-left-dec">
 			<img src="{{ asset("asset/images/tables-left-dec.png") }}" alt="">
 		</div>
 		<div class="tables-right-dec">
 			<img src="{{ asset("asset/images/tables-right-dec.png") }}" alt="">
-		</div>
+		</div> #}
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="section-heading">
-						<h2>Selectionner
-							<em>formation</em>
-							qui vous interesse et
-							<span>postuler</span>
+						<h2>Je
+							<em>postule</em>
+							a cette
+							<span>formation</span>
 						</h2>
-						<span>Our Plans</span>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-				<h3>Je postule a la formation</h3>
-					<div class="">
-					{% form_theme form "bootstrap_4_layout.html.twig" %}
-						{{form(form)}}
-					</div>
-				</div>
+			{# <h3>Je postule a la formation </h3> #}
+			{# <div class=""> #}
+			{% form_theme form "bootstrap_4_layout.html.twig" %}
+			{{form(form)}}
+				{# </div> #}
 
 			</div>
-
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}
 
-{# {% form_theme form "bootstrap_4_layout.html.twig" %}
-
-{{ form(form) }} #}
+	{# {% form_theme form "bootstrap_4_layout.html.twig" %}
+	
+	{{ form(form) }} #}

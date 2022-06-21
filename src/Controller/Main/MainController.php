@@ -74,7 +74,7 @@ class MainController extends AbstractController
         $dateDebutFormation = $formation->getDateDebutFormation();
         $dateFinFormation = $formation->getDateFinFormation();
         $datePublication = $formation->getDatePublication();
-        dd($formation);
+        
         return $this->render('main/detailFormation.html.twig', [
             "formation" => $formation,
             "titre" => $titre,
