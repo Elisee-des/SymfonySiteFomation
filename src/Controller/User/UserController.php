@@ -115,50 +115,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateur/formations/detail/postuler/{id}", name="user_postule_detail_foramtion")
+     * @Route("/utilisateur/formations/suivis", name="user_suivis_foramtion")
      */
     public function detailPostuler(Request $request, EntityManagerInterface $em, FormationRepository $formationRepository, $id): Response
     {
-        $candidature = new Candidature();
-        $fichiers = new PieceJointe();
-        $formation = $formationRepository->find($id);
-
-        $form = $this->createForm(PostuleFormationType::class, $candidature);
-
-        $user = $this->getUser();
-        $candidature->setUser($user);
-        $candidature->setFormation($formation);
-        $form->handleRequest($request);
-        $nom = md5(uniqid());
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $nomFichiers =  $request->files->get("postule_formation")["fichiers"];
-
-            foreach ($nomFichiers as $nomFichier) {
-                $nouveauNom = $nom . "." . $nomFichier->guessExtension();
-
-                $nomFichier->move($this->getParameter("images_directory"), $nouveauNom);
-            }
-
-            $fichiers->setFichiers($nouveauNom);
-            $fichiers->setCandidature($candidature);
-
-            $em->persist($fichiers);
-            $em->persist($candidature);
-            // dd($candidature);
-            $em->flush();
-
-            $this->addFlash(
-                'success',
-                'Vous avez posuler avec succes a cette formation.nous vous concterons apres selection de dossier'
-            );
-
-            return $this->redirectToRoute('formations');
-        }
 
         return $this->render('user/detailCandidature.html.twig', [
-            'form' => $form->createView(),
-            // 'formation' => $formation
+            
         ]);
     }
 }

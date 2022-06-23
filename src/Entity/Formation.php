@@ -71,6 +71,11 @@ class Formation
      */
     private $isActif;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $suivis;
+
     public function __toString()
     {
         return $this->titre;
@@ -233,6 +238,18 @@ class Formation
     public function setIsActif(?bool $isActif): self
     {
         $this->isActif = $isActif;
+
+        return $this;
+    }
+
+    public function isSuivis(): ?bool
+    {
+        return $this->suivis;
+    }
+
+    public function setSuivis(?bool $suivis): self
+    {
+        $this->suivis = $suivis;
 
         return $this;
     }
