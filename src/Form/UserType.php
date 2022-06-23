@@ -48,6 +48,7 @@ class UserType extends AbstractType
                 "label" => "Definir le role"
             ])
             ->add('isUser')
+            ->add('actif')
             ->add('photoFile', FileType::class, [
                 "mapped" => false,
                 "attr" => [

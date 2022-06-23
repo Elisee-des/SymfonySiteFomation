@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +17,9 @@ class EditCategorieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('description')
+            ->add('description', CKEditorType::class, [
+                'label'=> 'Description'
+            ])
             ->add('petitedescription')
             ->add('images', FileType::class, [
                 "mapped"=>false,

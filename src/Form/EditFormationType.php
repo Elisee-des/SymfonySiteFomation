@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Formation;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -17,7 +18,9 @@ class EditFormationType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description')
+            ->add('description', CKEditorType::class, [
+                'label'=> 'Description'
+            ])
             ->add('photoFile', FileType::class, [
                 "mapped" => false,
                 "label" => "Choisir une image",
