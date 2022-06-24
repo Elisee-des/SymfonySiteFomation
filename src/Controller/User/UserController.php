@@ -5,6 +5,8 @@ namespace App\Controller\User;
 use App\Entity\Candidature;
 use App\Entity\PieceJointe;
 use App\Form\ContactType;
+use App\Form\EditPasswordUserType;
+use App\Form\EditPhotoUserType;
 use App\Form\ModificaionProfilType;
 use App\Form\ModificationProfilType;
 use App\Form\PostuleFormationType;
@@ -16,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -74,19 +77,31 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(ModificationProfilType::class, $user);
+        $form = $this->createForm(EditPhotoUserType::class, $user);
 
         $form->handleRequest($request);
+
+        $nom = uniqid();
         
         if ($form->isSubmitted() && $form->isValid()) { 
+
+            $photo = $request->files->get("edit_photo_user")["photoProfil"];
+
+            $nouveauNom = $nom.'.'.$photo->guessExtension();
+
+            
+            $photo->move($this->getParameter('images_directory'), $nouveauNom);
+            // dd($photo);
             
             $em->persist($user);
             $em->flush();
 
             $this->addFlash(
                'message',
-               'Vous avez modifier avec succes votre profil'
+               'Vous avez modifier avec succes votre photo de profil'
             );
+
+            return $this->redirectToRoute('utlisateur_parametre');
         }
 
         return $this->render('user/parametre/editPhoto.html.twig', [
@@ -98,9 +113,34 @@ class UserController extends AbstractController
     /**
      * @Route("/utilisateur/parametre/edite-password", name="utilisateur_edit_password_parametre")
      */
-    public function editPassword(): Response
+    public function editPassword(Request $request, UserPasswordHasherInterface $hashpassword, EntityManagerInterface $em): Response
     {
+        /**
+         * @var User
+        */
+        $user = $this->getUser();
+        $form = $this->createForm(EditPasswordUserType::class, $user);
 
-        return $this->render('user/parametre/editPassword.html.twig', []);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $password = $request->get("edit_password_user")["password"]["first"];
+            $passwordHash = $hashpassword->hashPassword($user, $password);
+            $user->setPassword($passwordHash);
+
+            $em->flush();
+
+            $this->addFlash(
+               'message',
+               'Vous avez modifier avec succes votre mot de passe'
+            );
+
+            return $this->redirectToRoute('utlisateur_parametre');
+        }
+
+        return $this->render('user/parametre/editPassword.html.twig', [
+            'form'=>$form->createView()
+        ]);
     }
 }

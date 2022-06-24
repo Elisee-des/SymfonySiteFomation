@@ -4,13 +4,15 @@
 
 {% block body %}
 
-	<div class="container">
-		<div class="main-body">
+	<div class="card">
+		<div class="card-body float-center">
+			<h3>Modification de la photo de profil</h3><br>
+			{% form_theme form "bootstrap_4_layout.html.twig" %}
 
-		{% form_theme form "bootstrap_4_layout.html.twig" %}
-            {{form(form)}}
-        </div>
-	</div>
+			{{ form(form) }}
+
+			</div>
+		</div>
 
 
-</div></div>{% endblock %}
+{% endblock %}
