@@ -32,7 +32,7 @@ class UsersController extends AbstractController
     /**
      * @Route("/users/creation", name="utilisateur_creation")
      */
-    public function creation(Request $request, EntityManagerInterface $em): Response
+    public function creation(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasherInterface): Response
     {
         $user  = new User();
 
@@ -46,9 +46,15 @@ class UsersController extends AbstractController
 
             $nomImage = $form->get("photoFile")->getData();
 
+            $ancienPassword = $form->get("password")->getData();
+
             $nouveauNom = $nom . "." . $nomImage->guessExtension();
 
             $nomImage->move($this->getParameter("images_directory"), $nouveauNom);
+
+            $nouveauPassword = $passwordHasherInterface->hashPassword($user, $ancienPassword);
+
+            $user->setPassword($nouveauPassword);
 
             $user->setPhoto($nouveauNom);
 

@@ -74,7 +74,7 @@ class Formation
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $suivis;
+    private $suivis = false;
 
     public function __toString()
     {

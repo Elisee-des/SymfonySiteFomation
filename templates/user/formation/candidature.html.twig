@@ -1,18 +1,15 @@
-{% extends "base.main.html.twig" %}
+{% extends "base.user.html.twig" %}
 
 {% block titre %}{% endblock %}
 
-{% block main %}
+{% block body %}
 
 	<div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="section-heading">
-						<h2>Je
-							<em>postule</em>
-							a cette
-							<span>formation</span>
+						<h2>Je postule a cette formation
 						</h2>
 					</div>
 				</div>
@@ -22,3 +19,7 @@
 			</div>
 		</div>
 	{% endblock %}
+
+	{# {% form_theme form "bootstrap_4_layout.html.twig" %}
+		
+		{{ form(form) }} #}
