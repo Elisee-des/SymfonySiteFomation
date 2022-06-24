@@ -6,6 +6,7 @@ use App\Entity\Candidature;
 use App\Entity\PieceJointe;
 use App\Form\ContactType;
 use App\Form\PostuleFormationType;
+use App\Repository\CandidatureRepository;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -126,7 +127,7 @@ class UserController extends AbstractController
 
         $this->addFlash(
             'message',
-            'La formation ' .$formation->getTitre() . 'a ete ajouter dans la liste des formation a suivire'
+            'La formation ' . $formation->getTitre() . 'a ete ajouter dans la liste des formation a suivire'
         );
 
         return $this->redirectToRoute('formations');
@@ -143,7 +144,7 @@ class UserController extends AbstractController
 
         $this->addFlash(
             'messaage',
-            'La formation ' .$formation->getTitre() . 'a ete supprimer de la liste des formation a suivire'
+            'La formation ' . $formation->getTitre() . 'a ete supprimer de la liste des formation a suivire'
         );
 
         $em->flush();
@@ -209,5 +210,38 @@ class UserController extends AbstractController
         return $this->render('user/formation/candidature.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/utilisateur/candidature/liste", name="utilisateur_candidature_liste")
+     */
+    public function candidature(): Response
+    {
+        /**
+         * @var User
+         */
+        $user = $this->getUser();
+        $candidatures = $user->getCandidatures();
+
+        return $this->render("user/candidature/candidature.html.twig", [
+            "candidatures" => $candidatures
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/candidature/supprimer/{id}", name="utilisature_supprimer_foramtion")
+     */
+    public function supprimer(EntityManagerInterface $em, Candidature $candidature): Response
+    {
+
+        $em->remove($candidature);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'Vous avez retirer avec succes votre candidature'
+        );
+
+        return $this->redirectToRoute('utilisateur_candidature_liste');
     }
 }

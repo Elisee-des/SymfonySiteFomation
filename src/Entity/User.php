@@ -338,28 +338,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->emails;
     }
 
-    public function addEmail(Email $email): self
-    {
-        if (!$this->emails->contains($email)) {
-            $this->emails[] = $email;
-            $email->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEmail(Email $email): self
-    {
-        if ($this->emails->removeElement($email)) {
-            // set the owning side to null (unless already changed)
-            if ($email->getUser() === $this) {
-                $email->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function isActif(): ?bool
     {
         return $this->actif;
