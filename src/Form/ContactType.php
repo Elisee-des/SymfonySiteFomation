@@ -16,7 +16,7 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label'=> 'Entre un email de reception',
+                'label'=> 'Entre votre Email',
                 'attr' => [
                     'placeholder'=>'votreEmail@gmail.com'
                 ]
