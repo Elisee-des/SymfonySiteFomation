@@ -36,7 +36,10 @@
 						<td>{{candidat.email}}</td>
 						<td>{{candidat.telephone}}</td>
 						<td>{{candidat.dateCretion|date("m/d/Y")}}</td>
-						<td><a href="{{ path("admin_formation_candidature_fichiers", {id: candidat.id}) }}">{{candidat.fichiers}}</a></td>
+						<td>
+							<img src="{{ asset("fichiers/"~candidat.pieceJointe.fichiers) }}" alt="">
+						</td>
+						{# <td><a href="{{ path("admin_formation_candidature_fichiers", {id: candidat.id}) }}">ouvrir</a></td> #}
 					{% endfor %}
 				</tbody>
 			</table>

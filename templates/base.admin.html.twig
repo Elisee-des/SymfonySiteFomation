@@ -12,7 +12,8 @@
 		<meta
 		name="author" content="codedthemes"/>
 		<!-- Favicon icon -->
-		<link rel="icon" href="{{ asset("assets/images/favicon.ico") }}" type="image/x-icon">
+		<link
+		rel="icon" href="{{ asset("assets/images/favicon.ico") }}" type="image/x-icon">
 		<!-- Google font-->
 		<link
 		href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
@@ -40,8 +41,7 @@
 		<!-- Style.css -->
 		<link rel="stylesheet" type="text/css" href="{{ asset("assets/css/style.css") }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-		<link
-		rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 	</head>
 
 	<body>
@@ -132,63 +132,63 @@
 						</div>
 
 						{# <div class="navbar-container container-fluid">
-							<ul class="nav-left">
-								<li>
-									<div class="sidebar_toggle">
-										<a href="javascript:void(0)">
-											<i class="ti-menu"></i>
-										</a>
-									</div>
-								</li>
-								<li>
-									<a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-										<i class="ti-fullscreen"></i>
-									</a>
-								</li>
-							</ul>
-							<ul class="nav-right">
-
-								<li class="user-profile header-notification">
-									<a href="#!" class="waves-effect waves-light">
-										<img src="{{ asset("assets/images/avatar-4.jpg") }}" class="img-radius" alt="User-Profile-Image">
-										<span>Nom user</span>
-										<i class="ti-angle-down"></i>
-									</a>
-									<ul class="show-notification profile-notification">
-										<li class="waves-effect waves-light">
-											<a href="#!">
-												<i class="ti-settings"></i>
-												Settings
-											</a>
-										</li>
-										<li class="waves-effect waves-light">
-											<a href="user-profile.html">
-												<i class="ti-user"></i>
-												Profile
-											</a>
-										</li>
-										<li class="waves-effect waves-light">
-											<a href="email-inbox.html">
-												<i class="ti-email"></i>
-												My Messages
-											</a>
-										</li>
-										<li class="waves-effect waves-light">
-											<a href="auth-lock-screen.html">
-												<i class="ti-lock"></i>
-												Lock Screen
-											</a>
-										</li>
-										<li class="waves-effect waves-light">
-											<a href="auth-normal-sign-in.html">
-												<i class="ti-layout-sidebar-left"></i>
-												Logout
-											</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div> #}
+													<ul class="nav-left">
+														<li>
+															<div class="sidebar_toggle">
+																<a href="javascript:void(0)">
+																	<i class="ti-menu"></i>
+																</a>
+															</div>
+														</li>
+														<li>
+															<a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+																<i class="ti-fullscreen"></i>
+															</a>
+														</li>
+													</ul>
+													<ul class="nav-right">
+						
+														<li class="user-profile header-notification">
+															<a href="#!" class="waves-effect waves-light">
+																<img src="{{ asset("assets/images/avatar-4.jpg") }}" class="img-radius" alt="User-Profile-Image">
+																<span>Nom user</span>
+																<i class="ti-angle-down"></i>
+															</a>
+															<ul class="show-notification profile-notification">
+																<li class="waves-effect waves-light">
+																	<a href="#!">
+																		<i class="ti-settings"></i>
+																		Settings
+																	</a>
+																</li>
+																<li class="waves-effect waves-light">
+																	<a href="user-profile.html">
+																		<i class="ti-user"></i>
+																		Profile
+																	</a>
+																</li>
+																<li class="waves-effect waves-light">
+																	<a href="email-inbox.html">
+																		<i class="ti-email"></i>
+																		My Messages
+																	</a>
+																</li>
+																<li class="waves-effect waves-light">
+																	<a href="auth-lock-screen.html">
+																		<i class="ti-lock"></i>
+																		Lock Screen
+																	</a>
+																</li>
+																<li class="waves-effect waves-light">
+																	<a href="auth-normal-sign-in.html">
+																		<i class="ti-layout-sidebar-left"></i>
+																		Logout
+																	</a>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</div> #}
 					</div>
 				</nav>
 
@@ -261,7 +261,17 @@
 									</li>
 									<li class="">
 										<a href="" class="waves-effect waves-dark">
+											<span class="pcoded-mtext" data-i18n="nav.basic-components.ma"></span>Creation de Liste
+										</a>
+									</li>
+									<li class="">
+										<a href="" class="waves-effect waves-dark">
 											<span class="pcoded-mtext" data-i18n="nav.basic-components.ma"></span>Contact
+										</a>
+									</li>
+									<li class="">
+										<a href="" class="waves-effect waves-dark">
+											<span class="pcoded-mtext" data-i18n="nav.basic-components.ma"></span>Parametres
 										</a>
 									</li>
 								</ul>
@@ -353,7 +363,7 @@
 		<!-- custom js -->
 		<script type="text/javascript" src="{{ asset("assets/pages/dashboard/custom-dashboard.js") }}"></script>
 		<script type="text/javascript" src="{{ asset("assets/js/script.js") }} "></script>
-		
+
 	</body>
 	{% block javascripts %}{% endblock %}
 
