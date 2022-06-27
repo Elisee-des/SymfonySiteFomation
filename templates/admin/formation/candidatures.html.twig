@@ -30,6 +30,7 @@
 				</thead>
 				<tbody>
 					{% for candidat in candidats %}
+					<tr>
 						<td>{{candidat.nom}}</td>
 						<td>{{candidat.prenom}}</td>
 						<td>{{candidat.niveauEtude}}</td>
@@ -37,6 +38,7 @@
 						<td>{{candidat.telephone}}</td>
 						<td>{{candidat.dateCretion|date("m/d/Y")}}</td>
 						<td><a href="{{ path("admin_formation_candidature_fichiers", {id: candidat.id}) }}">ouvrir</a></td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>

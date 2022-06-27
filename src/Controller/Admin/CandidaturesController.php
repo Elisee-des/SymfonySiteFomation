@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Candidature;
 use App\Form\CandidatureType;
 use App\Form\EditCandidaturesType;
+use App\Form\EditCandidatureType;
 use App\Repository\CandidatureRepository;
 use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,17 +79,29 @@ class CandidaturesController extends AbstractController
     /**
      * @Route("/edition/{id}", name="edition")
      */
-    public function edition(Candidature $candidature, EntityManagerInterface $em, Request $request): Response
+    public function edition(Candidature $candidature, EntityManagerInterface $em, Request $request, UploaderFichiers $uploader): Response
     {
         // dd($candidature);
-        $form = $this->createForm(EditCandidaturesType::class, $candidature);
+        $form = $this->createForm(EditCandidatureType::class, $candidature);
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+             
+            $cv = $request->files->get("edit_candidature")["cv"];
+            $diplome = $request->files->get("edit_candidature")["diplome"];
+            $lettreMotivation = $request->files->get("edit_candidature")["lettre_motivation"];
+            $photo = $request->files->get("edit_candidature")["photo"];
             
-            $fichiers = $request->files->get("edit_candidatures")["fichier"];
-            // dd($fichiers);
+            $nomNouveauCv = $uploader->upload($cv);
+            $nomNouveauDiplome = $uploader->upload($diplome);
+            $nomNouveauLettreMotivation = $uploader->upload($lettreMotivation);
+            $nomNouveauPhoto = $uploader->upload($photo);
+
+            $candidature->setCv($nomNouveauCv);
+            $candidature->setDiplome($nomNouveauDiplome);
+            $candidature->setLettreMotivation($nomNouveauLettreMotivation);
+            $candidature->setPhoto($nomNouveauPhoto);
 
             $em->persist($candidature);
             $em->flush();

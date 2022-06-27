@@ -158,9 +158,12 @@ class FormationController extends AbstractController
     /**
      * @Route("/candidature/fichiers/{id}", name="candidature_fichiers")
      */
-    public function candidatureFichier(Formation $formation): Response
+    public function candidatureFichier(FormationRepository $formationRepository, $id): Response
     {
+        $formation = $formationRepository->find($id);
         $fichiers = $formation->getCandidatures();
+        // dd($formation);
+        // $fichiers = $formation->getCandidatures();
         return $this->render("admin/formation/fichiersDetail.html.twig", [
             'fichiers' => $fichiers
         ]);
