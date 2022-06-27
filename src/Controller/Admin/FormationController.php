@@ -155,14 +155,14 @@ class FormationController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/candidature/{id}/fichiers/{id}", name="candidature_fichiers")
-    //  */
-    // public function candidatureFichier(Formation $formation): Response
-    // {
-    //     $fichiers = $formation->getCandidatures();
-    //     return $this->render("admin/formation/fichiersDetail.html.twig", [
-    //         'fichiers' => $fichiers
-    //     ]);
-    // }
+    /**
+     * @Route("/candidature/fichiers/{id}", name="candidature_fichiers")
+     */
+    public function candidatureFichier(Formation $formation): Response
+    {
+        $fichiers = $formation->getCandidatures();
+        return $this->render("admin/formation/fichiersDetail.html.twig", [
+            'fichiers' => $fichiers
+        ]);
+    }
 }

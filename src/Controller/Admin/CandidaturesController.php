@@ -38,8 +38,6 @@ class CandidaturesController extends AbstractController
     {
         $candidature = new Candidature();
 
-        $pieceJointe = new PieceJointe();
-
         $nom = uniqid();
 
         $form = $this->createForm(CandidatureType::class, $candidature);
@@ -54,10 +52,6 @@ class CandidaturesController extends AbstractController
 
             $fichiers->move($this->getParameter("fichiers_directory"), $nouveauNom);
 
-            $pieceJointe->setCandidature($candidature);
-            $pieceJointe->setFichiers($nouveauNom);
-
-            $em->persist($pieceJointe);
             $em->persist($candidature);
             $em->flush();
 
@@ -77,7 +71,7 @@ class CandidaturesController extends AbstractController
     /**
      * @Route("/edition/{id}", name="edition")
      */
-    public function edition(Candidature $candidature, PieceJointe $pieceJointe, EntityManagerInterface $em, Request $request): Response
+    public function edition(Candidature $candidature, EntityManagerInterface $em, Request $request): Response
     {
         // dd($candidature);
         $form = $this->createForm(EditCandidaturesType::class, $candidature);
@@ -86,18 +80,9 @@ class CandidaturesController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $nom = uniqid();
             $fichiers = $request->files->get("edit_candidatures")["fichier"];
             // dd($fichiers);
 
-            $nouveauNom = $nom . "." . $fichiers->guessExtension();
-
-            $fichiers->move($this->getParameter("fichiers_directory"), $nouveauNom);
-
-            $pieceJointe->setCandidature($candidature);
-            $pieceJointe->setFichiers($nouveauNom);
-
-            $em->persist($pieceJointe);
             $em->persist($candidature);
             $em->flush();
 

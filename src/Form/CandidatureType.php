@@ -49,12 +49,8 @@ class CandidatureType extends AbstractType
                     "label" => "Niveau d'etude"
                 ]
             ])
-            ->add('formation')
-            ->add('fichiers', FileType::class, [
-                'label' => 'Choisir vos fichiers',
-                // 'mapped' => false,
-                // 'multiple' => true,
-                // 'required' => true,
+            ->add('cv', FileType::class, [
+                'label' => 'Choisir votre CV',
                 "constraints" => [
                     new File([
                         "maxSize" => "2M",
@@ -66,6 +62,46 @@ class CandidatureType extends AbstractType
                     // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
                 ]
             ])
+            ->add('diplome', FileType::class, [
+                'label' => 'Choisir vos diplome',
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
+            ])
+            ->add('lettre_motivation', FileType::class, [
+                'label' => 'Choisir votre lettre de motivation',
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
+            ])
+            ->add('photo', FileType::class, [
+                'label' => "Choisir une recente photo d'identité",
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
+            ])
+
             ->add('Confirmer', SubmitType::class);
     }
 

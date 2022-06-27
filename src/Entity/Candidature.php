@@ -36,11 +36,6 @@ class Candidature
     private $formation;
 
     /**
-     * @ORM\OneToMany(targetEntity=PieceJointe::class, mappedBy="candidature", orphanRemoval=true)
-     */
-    private $pieceJointe;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidatures")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -65,6 +60,26 @@ class Candidature
      * @ORM\Column(type="string", length=255)
      */
     private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cv;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lettreMotivation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $diplome;
 
     public function __construct()
     {
@@ -119,28 +134,6 @@ class Candidature
     public function getPieceJointe(): Collection
     {
         return $this->pieceJointe;
-    }
-
-    public function addPieceJointe(PieceJointe $pieceJointe): self
-    {
-        if (!$this->pieceJointe->contains($pieceJointe)) {
-            $this->pieceJointe[] = $pieceJointe;
-            $pieceJointe->setCandidature($this);
-        }
-
-        return $this;
-    }
-
-    public function removePieceJointe(PieceJointe $pieceJointe): self
-    {
-        if ($this->pieceJointe->removeElement($pieceJointe)) {
-            // set the owning side to null (unless already changed)
-            if ($pieceJointe->getCandidature() === $this) {
-                $pieceJointe->setCandidature(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -199,6 +192,54 @@ class Candidature
     public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getCv(): ?string
+    {
+        return $this->cv;
+    }
+
+    public function setCv(string $cv): self
+    {
+        $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getLettreMotivation(): ?string
+    {
+        return $this->lettreMotivation;
+    }
+
+    public function setLettreMotivation(string $lettreMotivation): self
+    {
+        $this->lettreMotivation = $lettreMotivation;
+
+        return $this;
+    }
+
+    public function getDiplome(): ?string
+    {
+        return $this->diplome;
+    }
+
+    public function setDiplome(string $diplome): self
+    {
+        $this->diplome = $diplome;
 
         return $this;
     }
