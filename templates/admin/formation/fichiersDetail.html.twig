@@ -1,0 +1,27 @@
+{% extends "base.admin.html.twig" %}
+
+{% block titre %}Gestion des fichiers
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<br>
+		<div class="card-hearder text-center">
+			<h2>Gestion des fichiers</h2>
+		</div>
+
+		<div class="card-body">
+            {% for fichier in fichiers %}
+				<img src="{{ asset("images/"~fichier.fichiers) }}" alt="">
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).ready(function () {
+$('#example').DataTable();
+});
+	</script>
+{% endblock %}

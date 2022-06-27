@@ -24,7 +24,7 @@ class FormationController extends AbstractController
      */
     public function index(FormationRepository $formationRepository): Response
     {
-    
+
         return $this->render('admin/formation/index.html.twig', [
             'formations' => $formationRepository->findAll()
         ]);
@@ -138,5 +138,30 @@ class FormationController extends AbstractController
         );
 
         return $this->redirectToRoute('admin_formation_liste');
+    }
+
+    /**
+     * @Route("/candidature/{id}", name="candidature")
+     */
+    public function candidature(Formation $formation): Response
+    {
+        $titre = $formation->getTitre();
+        $candidats = $formation->getCandidatures();
+
+        return $this->render("admin/formation/candidatures.html.twig", [
+            'titre' => $titre,
+            'candidats' => $candidats
+        ]);
+    }
+
+    /**
+     * @Route("/candidature/fichiers/{id}", name="candidature_fichiers")
+     */
+    public function candidatureFichier(Formation $formation): Response
+    {
+        $fichiers = $formation->getCandidatures();
+        return $this->render("admin/formation/fichiersDetail.html.twig", [
+            'fichiers' => $fichiers
+        ]);
     }
 }
