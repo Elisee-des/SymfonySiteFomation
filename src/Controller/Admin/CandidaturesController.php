@@ -3,12 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Candidature;
-use App\Entity\PieceJointe;
-use App\Form\CandidaturesType;
 use App\Form\CandidatureType;
 use App\Form\EditCandidaturesType;
-use App\Form\EditCandidatureType;
 use App\Repository\CandidatureRepository;
+use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +32,7 @@ class CandidaturesController extends AbstractController
     /**
      * @Route("/creation", name="creation")
      */
-    public function creation(EntityManagerInterface $em, Request $request): Response
+    public function creation(EntityManagerInterface $em, Request $request, UploaderFichiers $uploader): Response
     {
         $candidature = new Candidature();
 
@@ -46,11 +44,20 @@ class CandidaturesController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $fichiers = $request->files->get("candidature")["fichiers"];
+            $cv = $request->files->get("candidature")["cv"];
+            $diplome = $request->files->get("candidature")["diplome"];
+            $lettreMotivation = $request->files->get("candidature")["lettre_motivation"];
+            $photo = $request->files->get("candidature")["photo"];
+            
+            $nomNouveauCv = $uploader->upload($cv);
+            $nomNouveauDiplome = $uploader->upload($diplome);
+            $nomNouveauLettreMotivation = $uploader->upload($lettreMotivation);
+            $nomNouveauPhoto = $uploader->upload($photo);
 
-            $nouveauNom = $nom . "." . $fichiers->guessExtension();
-
-            $fichiers->move($this->getParameter("fichiers_directory"), $nouveauNom);
+            $candidature->setCv($nomNouveauCv);
+            $candidature->setDiplome($nomNouveauDiplome);
+            $candidature->setLettreMotivation($nomNouveauLettreMotivation);
+            $candidature->setPhoto($nomNouveauPhoto);
 
             $em->persist($candidature);
             $em->flush();

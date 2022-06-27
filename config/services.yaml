@@ -13,6 +13,12 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $fichiers_directory: '%fichiers_directory%'
+    
+    App\Services\UploaderFichiers:
+        arguments:
+            $dossier: '%kernel.project_dir%/public/fichiers'
 
     # App\Services\UploaderService:
     #     arguments:

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Candidature;
+use App\Entity\Formation;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +24,10 @@ class CandidatureType extends AbstractType
             ->add('user', EntityType::class, [
                 "class" => User::class,
                 "label" => "Choisir un utilisateur"
+            ])
+            ->add('formation', EntityType::class, [
+                "class" => Formation::class,
+                "label" => "Choisir une Formation"
             ])
             ->add('nom', TextType::class, [
                 "attr" => [
@@ -50,7 +55,7 @@ class CandidatureType extends AbstractType
                 ]
             ])
             ->add('cv', FileType::class, [
-                'label' => 'Choisir votre CV',
+                'label' => 'CV',
                 "constraints" => [
                     new File([
                         "maxSize" => "2M",
@@ -63,7 +68,7 @@ class CandidatureType extends AbstractType
                 ]
             ])
             ->add('diplome', FileType::class, [
-                'label' => 'Choisir vos diplome',
+                'label' => 'Diplomes',
                 "constraints" => [
                     new File([
                         "maxSize" => "2M",
@@ -76,7 +81,7 @@ class CandidatureType extends AbstractType
                 ]
             ])
             ->add('lettre_motivation', FileType::class, [
-                'label' => 'Choisir votre lettre de motivation',
+                'label' => 'Lettre de motivation',
                 "constraints" => [
                     new File([
                         "maxSize" => "2M",
