@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactType extends AbstractType
 {
@@ -21,10 +22,23 @@ class ContactType extends AbstractType
                     'placeholder' => 'Elisee'
                 ]
             ])
+
+            ->add('sujet', TextType::class, [
+                'label' => 'Entre votre sujet',
+                'attr' => [
+                    'placeholder' => 'sujet'
+                ]
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Entre votre Email',
                 'attr' => [
                     'placeholder' => 'votreEmail@gmail.com'
+                ]
+            ])
+            ->add('message', TextareaType::class, [
+                'label' => 'Entre votre message',
+                'attr' => [
+                    'placeholder' => 'message'
                 ]
             ])
             ->add('Envoyez', SubmitType::class);

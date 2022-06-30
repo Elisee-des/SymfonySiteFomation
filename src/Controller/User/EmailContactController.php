@@ -27,14 +27,14 @@ class EmailContactController extends AbstractController
         // $emailTo = $user->getEmail();
         // $name = $user->getNom();
         $emailTo =  $contact->get('email')->getData();
-        // $subject = $contact->get('sujet')->getData();
-        // $content = $contact->get('message')->getData();
+        $sujet = $contact->get('sujet')->getData();
+        $message = $contact->get('message')->getData();
         $nom = $contact->get('nom')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $email = new Mail();
-            $email->send($emailTo, $nom, "Bonjour", "Bienvenu $nom je test A nouveau mailjet");
+            $email->send($emailTo, $nom, $sujet, $message);
 
             $this->addFlash(
                 'message',
