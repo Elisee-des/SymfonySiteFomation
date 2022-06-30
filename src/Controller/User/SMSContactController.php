@@ -15,7 +15,7 @@ class SMSContactController extends AbstractController
      */
     public function contact(): Response
     {
-        return $this->render('user/contact/contact.html.twig', []);
+        return $this->render('user/contact/index.html.twig', []);
     }
 
     /**

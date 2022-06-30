@@ -7,19 +7,10 @@ use Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ContactController extends AbstractController
+class EmailContactController extends AbstractController
 {
-    /**
-     * @Route("/utilisateur/contact", name="utilisateur_contact")
-     */
-    public function contact(): Response
-    {
-        return $this->render('user/contact/index.html.twig', []);
-    }
-
     /**
      * @Route("/utilisateur/contact/email", name="utilisateur_contact_email")
      */
@@ -36,13 +27,14 @@ class ContactController extends AbstractController
         // $emailTo = $user->getEmail();
         // $name = $user->getNom();
         $emailTo =  $contact->get('email')->getData();
-        $subject = $contact->get('sujet')->getData();
-        $content = $contact->get('message')->getData();
+        // $subject = $contact->get('sujet')->getData();
+        // $content = $contact->get('message')->getData();
+        $nom = $contact->get('nom')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $email = new Mail();
-            $email->send($emailTo, $subject, $content);
+            $email->send($emailTo, $nom, "Bonjour", "Bienvenu $nom je test A nouveau mailjet");
 
             $this->addFlash(
                 'message',

@@ -15,20 +15,19 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label'=> 'Entre votre Email',
+            ->add('nom', TextType::class, [
+                'label' => 'Entre votre Nom',
                 'attr' => [
-                    'placeholder'=>'votreEmail@gmail.com'
+                    'placeholder' => 'Elisee'
                 ]
             ])
-            ->add('sujet', TextType::class, [
-                'label'=> 'sujet du message'
+            ->add('email', EmailType::class, [
+                'label' => 'Entre votre Email',
+                'attr' => [
+                    'placeholder' => 'votreEmail@gmail.com'
+                ]
             ])
-            ->add('message', CKEditorType::class, [
-                'label'=> 'Entrez votre message'
-            ])
-            ->add('Envoyez', SubmitType::class)
-        ;
+            ->add('Envoyez', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
