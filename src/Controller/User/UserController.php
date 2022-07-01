@@ -24,12 +24,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/utilisateur", name="app_user")
+     * @Route("/utilisateur", name="utilisateur")
      */
     public function index(): Response
     {
+        /**
+         * @var User
+        */
+        $user = $this->getUser();
+        $candidatures = $user->getCandidatures();
+
+        $formationSuivis = $user->getCandidatures();
+
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'candidatures' => $candidatures,
+            'suivis' => $formationSuivis
         ]);
     }
 
