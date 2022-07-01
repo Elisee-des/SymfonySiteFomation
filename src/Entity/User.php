@@ -49,11 +49,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isUser = true;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $dateCreation;
@@ -206,18 +201,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function isIsUser(): ?bool
-    {
-        return $this->isUser;
-    }
-
-    public function setIsUser(?bool $isUser): self
-    {
-        $this->isUser = $isUser;
 
         return $this;
     }
