@@ -56,7 +56,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('utilisateur'));
         }
         elseif (in_array("ROLE_DEACTIVED",$roles)){
-            return new RedirectResponse($this->urlGenerator->generate('utilisateur'));
+            return new RedirectResponse($this->urlGenerator->generate('main'));
         }
 
         // For example:

@@ -84,6 +84,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $actif = true;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deactived;
+
     public function __toString()
     {
         return $this->nom." ".$this->prenom;
@@ -346,6 +351,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function isDeactived(): ?bool
+    {
+        return $this->deactived;
+    }
+
+    public function setDeactived(?bool $deactived): self
+    {
+        $this->deactived = $deactived;
 
         return $this;
     }
