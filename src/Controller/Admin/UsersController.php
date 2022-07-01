@@ -87,19 +87,19 @@ class UsersController extends AbstractController
 
             $nom = uniqid();
 
-            $nomImage = $form->get("photoFile")->getData();
+            // $nomImage = $form->get("photoFile")->getData();
 
-            $ancienPassword = $form->get("password")->getData();
+            // $ancienPassword = $form->get("password")->getData();
 
-            $nouveauNom = $nom.".".$nomImage->guessExtension();
+            // $nouveauNom = $nom.".".$nomImage->guessExtension();
 
-            $nomImage->move($this->getParameter("images_directory"), $nouveauNom);
+            // $nomImage->move($this->getParameter("images_directory"), $nouveauNom);
             
-            $nouveauPassword = $passwordHasherInterface->hashPassword($user, $ancienPassword);
+            // $nouveauPassword = $passwordHasherInterface->hashPassword($user, $ancienPassword);
 
-            $user->setPhoto($nouveauNom);
+            // $user->setPhoto($nouveauNom);
 
-            $user->setPassword($nouveauPassword);
+            // $user->setPassword($nouveauPassword);
 
             $em->persist($user);
             $em->flush();

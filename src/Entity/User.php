@@ -74,11 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $telephone;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $actif = true;
-
     public function __toString()
     {
         return $this->nom." ".$this->prenom;
@@ -321,16 +316,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->emails;
     }
 
-    public function isActif(): ?bool
-    {
-        return $this->actif;
-    }
-
-    public function setActif(bool $actif): self
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
 
 }

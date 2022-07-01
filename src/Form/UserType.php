@@ -41,14 +41,13 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 "choices" => [
                     "Utilisateur" => "ROLE_USER",
-                    "Administrateur" => "ROLE_ADMIN"
+                    "Administrateur" => "ROLE_ADMIN",
+                    "Desactiviter" => "ISDESACTIVED"
                 ],
                 "expanded" => true,
                 "multiple" => true,
                 "label" => "Definir le role"
             ])
-            ->add('isUser')
-            ->add('actif')
             ->add('photoFile', FileType::class, [
                 "mapped" => false,
                 "attr" => [
