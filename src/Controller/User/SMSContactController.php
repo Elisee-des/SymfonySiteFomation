@@ -21,7 +21,7 @@ class SMSContactController extends AbstractController
     /**
      * @Route("/utilisateur/contact/sms", name="utilisateur_contact_sms")
      */
-    public function contactEmail(Request $request): Response
+    public function smsEmail(Request $request): Response
     {
         /**
          * @var User
