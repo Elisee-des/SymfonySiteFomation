@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Form\ContactType;
+use App\Form\SMSContactType;
 use Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +103,7 @@ class AdminContactController extends AbstractController
                 'Votre sms a ete envoyez avec success'
             );
 
-            return $this->redirectToRoute('admin_contact_sms');
+            // return $this->redirectToRoute('admin_contact_sms');
         }
 
         return $this->render('admin/contact/sms.html.twig', [
