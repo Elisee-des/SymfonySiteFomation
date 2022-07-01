@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ville;
+use App\Form\ImportationVilleType;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use App\Form\VilleType;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,7 +49,7 @@ class VilleController extends AbstractController
                 'success',
                 "La ville de " . $ville->getNom() . " a ete creer avec success"
             );
-            
+
             return $this->redirectToRoute('admin_ville');
         }
         return $this->render('admin/ville/creation.html.twig', [
@@ -72,7 +74,7 @@ class VilleController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La ville de" . $ville->getNom(). " a ete modifier avec success"
+                "La ville de" . $ville->getNom() . " a ete modifier avec success"
             );
             return $this->redirectToRoute('admin_ville');
         }
@@ -91,8 +93,35 @@ class VilleController extends AbstractController
 
         $this->addFlash(
             'success',
-            "La ville de " . $user->getNom(). " a ete supprimer avec success"
+            "La ville de " . $user->getNom() . " a ete supprimer avec success"
         );
         return $this->redirectToRoute('admin_ville');
+    }
+
+    /**
+     * @Route("/ville/importation", name="importation_ville")
+     */
+    public function importationVille(Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(ImportationVilleType::class);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $fichier = $form->get("fichier")->getData();
+
+            $chemin = $fichier->getPathName();
+
+            $reader = ReaderEntityFactory::createXLSXReader();
+
+            
+
+        }
+
+        return $this->render('admin/ville/importation.html.twig', [
+            'form' => $form->createView(),
+
+        ]);
     }
 }
