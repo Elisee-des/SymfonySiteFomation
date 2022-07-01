@@ -168,4 +168,30 @@ class FormationController extends AbstractController
             'fichiers' => $fichiers
         ]);
     }
+
+    /**
+     * @Route("/candidature/formation/etat/{id}", name="gestion_etat_formation")
+     */
+    public function activationFormation(FormationRepository $formationRepository, $id): Response
+    {
+        $formation = $formationRepository->find($id);
+
+        if ($formation->isIsActif() === false) {
+            $formation->setIsActif(true);
+            $formationRepository->flush();
+            $this->addFlash(
+                'message',
+                "Vous avez activer la formation. Celle-ci s'affichera dans la liste des formations disponible"
+            );
+        } elseif ($formation->isIsActif() === true) {
+            $formation->setIsActif(false);
+            $formationRepository->flush();
+            $this->addFlash(
+                'message',
+                "Vous avez descativer la formation. Celle-ci n'apparaitera pas dans la liste des formations disponible"
+            );
+        }
+
+        return $this->redirectToRoute('admin_formation_liste');
+    }
 }

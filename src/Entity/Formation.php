@@ -69,7 +69,7 @@ class Formation
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isActif;
+    private $isActif=true;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)

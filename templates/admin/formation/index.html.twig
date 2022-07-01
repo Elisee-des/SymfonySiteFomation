@@ -35,6 +35,7 @@
 							<td>
 								<a href="{{ path("admin_formation_detail", {id: formation.id}) }}" class="btn btn-secondary">Detail</a>
 								<a href="{{ path("admin_formation_edition", {id: formation.id}) }}" class="btn btn-primary">Editer</a>
+								<a href="{{ path("admin_formation_gestion_etat_formation", {id: formation.id}) }}" class="btn btn-info" onclick="return confirm('Modifier l'etat de la formation ?')">Etat</a>
 								<a href="{{ path("admin_formation_suppression", {id: formation.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sur de vouloir supprimer cette formation ?')">Supprimer</a>
 							</td>
 						</tr>
