@@ -30,7 +30,7 @@ class UserController extends AbstractController
     {
         /**
          * @var User
-        */
+         */
         $user = $this->getUser();
         $candidatures = $user->getCandidatures();
 
@@ -60,15 +60,15 @@ class UserController extends AbstractController
         $form = $this->createForm(ModificationProfilType::class, $user);
 
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $em->persist($user);
             $em->flush();
 
             $this->addFlash(
-               'message',
-               'Vous avez modifier avec succes votre profil'
+                'message',
+                'Vous avez modifier avec succes votre profil'
             );
 
             return $this->redirectToRoute('utlisateur_parametre');
@@ -91,23 +91,23 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         $nom = uniqid();
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $photo = $request->files->get("edit_photo_user")["photoProfil"];
 
-            $nouveauNom = $nom.'.'.$photo->guessExtension();
+            $nouveauNom = $nom . '.' . $photo->guessExtension();
 
-            
+
             $photo->move($this->getParameter('images_directory'), $nouveauNom);
             // dd($photo);
-            
+
             $em->persist($user);
             $em->flush();
 
             $this->addFlash(
-               'message',
-               'Vous avez modifier avec succes votre photo de profil'
+                'message',
+                'Vous avez modifier avec succes votre photo de profil'
             );
 
             return $this->redirectToRoute('utlisateur_parametre');
@@ -116,7 +116,6 @@ class UserController extends AbstractController
         return $this->render('user/parametre/editPhoto.html.twig', [
             "form" => $form->createView()
         ]);
-
     }
 
     /**
@@ -126,12 +125,12 @@ class UserController extends AbstractController
     {
         /**
          * @var User
-        */
+         */
         $user = $this->getUser();
         $form = $this->createForm(EditPasswordUserType::class, $user);
 
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $password = $request->get("edit_password_user")["password"]["first"];
@@ -141,15 +140,25 @@ class UserController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-               'message',
-               'Vous avez modifier avec succes votre mot de passe'
+                'message',
+                'Vous avez modifier avec succes votre mot de passe'
             );
 
             return $this->redirectToRoute('utlisateur_parametre');
         }
 
         return $this->render('user/parametre/editPassword.html.twig', [
-            'form'=>$form->createView()
+            'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/utilisateur/parametre/deactivation", name="utilisateur_parametre_deactivition")
+     */
+    public function deactivationCompte(): Response
+    {
+
+        
+
     }
 }
