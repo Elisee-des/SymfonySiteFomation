@@ -50,18 +50,13 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         }
         $roles = $token->getUser()->getRoles();
 
-        if(in_array("ROLE_ADMIN",$roles)){
+        if (in_array("ROLE_ADMIN", $roles)) {
             return new RedirectResponse($this->urlGenerator->generate('admin_home'));
-        }elseif (in_array("ROLE_USER",$roles)){
+        } elseif (in_array("ISDESACTIVED", $roles)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_logout'));
+        } elseif (in_array("ROLE_USER", $roles)) {
             return new RedirectResponse($this->urlGenerator->generate('utilisateur'));
         }
-        elseif (in_array("ROLE_DEACTIVED",$roles)){
-            return new RedirectResponse($this->urlGenerator->generate('main'));
-        }
-
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('main'));
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

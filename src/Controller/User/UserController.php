@@ -153,12 +153,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateur/parametre/deactivation", name="utilisateur_parametre_deactivition")
+     * @Route("/utilisateur/parametre/deactivation", name="utilisateur_parametre_desactivition")
      */
-    public function deactivationCompte(): Response
+    public function deactivationCompte(EntityManagerInterface $em): Response
     {
+        /**
+         * @var User
+         */
+        $user = $this->getUser();
+        $user->setRoles(["ISDESACTIVED"]);
 
-        
+        $em->flush();
 
+        $this->addFlash(
+           'message',
+           "Vous avez supprimer votre compte. Veuillez contacter l'adminisateur pour recuperer votre compte si necessaire"
+        );
+
+        return $this->redirectToRoute('main');
     }
 }
