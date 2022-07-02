@@ -4,10 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Ville;
 use App\Form\EditVilleType;
+use App\Form\ExportationVilleType;
 use App\Form\ImportationVilleType;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use App\Form\VilleType;
 use App\Repository\VilleRepository;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,7 +109,7 @@ class VilleController extends AbstractController
         $form = $this->createForm(ImportationVilleType::class);
 
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $fichier = $form->get("fichier")->getData();
@@ -127,8 +129,8 @@ class VilleController extends AbstractController
             }
 
             //Maitenant importation des donnes
-            for ($i=0; $i < count($excelTabDonnee); $i++) { 
-                
+            for ($i = 0; $i < count($excelTabDonnee); $i++) {
+
                 $ville = new Ville();
 
                 $ville->setNom($excelTabDonnee[$i][0]);
@@ -137,17 +139,64 @@ class VilleController extends AbstractController
             }
 
             $this->addFlash(
-               'message',
-               'vous avez importer avec succes votre fichier excel'
+                'message',
+                'vous avez importer avec succes votre fichier excel'
             );
 
             $em->flush();
 
             return $this->redirectToRoute('admin_ville');
-
         }
 
         return $this->render('admin/ville/importation.html.twig', [
+            'form' => $form->createView(),
+
+        ]);
+    }
+
+    /**
+     * @Route("/ville/exportation", name="exportation_ville")
+     */
+    public function exportation(Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(ExportationVilleType::class);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            
+            $fichier = $form->get("fichier")->getData();
+
+            $chemin = $fichier->getFileName();
+
+            $writer = WriterEntityFactory::createXLSXWriter();
+    
+            $writer->openToFile($chemin);
+
+            
+            $cells = [
+                WriterEntityFactory::createCell('carl'),
+                WriterEntityFactory::createCell('is'),
+                WriterEntityFactory::createCell('great')
+            ];
+            
+            // $singleRow = WriterEntityFactory::createRow($cells);
+            
+            // $writer->addRow($singleRow);
+            
+            $multipleRow = [
+                WriterEntityFactory::createRow($cells),
+            ];
+            
+            $writer->addRows($multipleRow);
+            // dd($writer->addRows($multipleRow));
+
+            $writer->close();
+            
+        }
+
+
+        return $this->render('admin/ville/exportation.html.twig', [
             'form' => $form->createView(),
 
         ]);
