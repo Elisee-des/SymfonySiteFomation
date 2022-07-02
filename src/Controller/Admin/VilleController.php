@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ville;
+use App\Form\EditVilleType;
 use App\Form\ImportationVilleType;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use App\Form\VilleType;
@@ -63,7 +64,7 @@ class VilleController extends AbstractController
      */
     public function edition(Ville $ville, Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(UserType::class, $ville);
+        $form = $this->createForm(EditVilleType::class, $ville);
 
         $form->handleRequest($request);
 
