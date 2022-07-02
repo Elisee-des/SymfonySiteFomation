@@ -154,51 +154,66 @@ class VilleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/ville/exportation", name="exportation_ville")
-     */
-    public function exportation(Request $request, EntityManagerInterface $em): Response
-    {
-        $form = $this->createForm(ExportationVilleType::class);
+    // /**
+    //  * @Route("/ville/exportation", name="exportation_ville")
+    //  */
+    // public function exportation(Request $request, EntityManagerInterface $em): Response
+    // {
+    //     $form = $this->createForm(ExportationVilleType::class);
 
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            
-            $fichier = $form->get("fichier")->getData();
+    //     $form->handleRequest($request);
 
-            $chemin = $fichier->getFileName();
+    //     if ($form->isSubmitted() && $form->isValid()) {
 
-            $writer = WriterEntityFactory::createXLSXWriter();
-    
-            $writer->openToFile($chemin);
+    //         $fichier = $form->get("fichier")->getData();
 
-            
-            $cells = [
-                WriterEntityFactory::createCell('carl'),
-                WriterEntityFactory::createCell('is'),
-                WriterEntityFactory::createCell('great')
-            ];
-            
-            // $singleRow = WriterEntityFactory::createRow($cells);
-            
-            // $writer->addRow($singleRow);
-            
-            $multipleRow = [
-                WriterEntityFactory::createRow($cells),
-            ];
-            
-            $writer->addRows($multipleRow);
-            // dd($writer->addRows($multipleRow));
+    //         $chemin = $fichier->getFileName();
 
-            $writer->close();
-            
-        }
+    //         $writer = WriterEntityFactory::createXLSXWriter();
+
+    //         $writer->openToFile($chemin);
 
 
-        return $this->render('admin/ville/exportation.html.twig', [
-            'form' => $form->createView(),
+    //         $cells = [
+    //             WriterEntityFactory::createCell('carl'),
+    //             WriterEntityFactory::createCell('is'),
+    //             WriterEntityFactory::createCell('great')
+    //         ];
 
-        ]);
-    }
+    //         // $singleRow = WriterEntityFactory::createRow($cells);
+
+    //         // $writer->addRow($singleRow);
+
+    //         $multipleRow = [
+    //             WriterEntityFactory::createRow($cells),
+    //         ];
+
+    //         $writer->addRows($multipleRow);
+    //         // dd($writer->addRows($multipleRow));
+
+    //         $writer->close();
+    //     }
+
+
+    //     return $this->render('admin/ville/exportation.html.twig', [
+    //         'form' => $form->createView(),
+
+    //     ]);
+    // }
+
+    // /**
+    //  * @Route("/ville/exportation", name="exportation_ville")
+    //  */
+    // public function exportationExcel(Request $request, EntityManagerInterface $em): Response
+    // {
+    //     $form = $this->createForm(ExportationVilleType::class);
+
+    //     $form->handleRequest($request);
+
+
+    //     return $this->render('admin/ville/exportation.html.twig', [
+    //         'form' => $form->createView(),
+
+    //     ]);
+    // }
 }

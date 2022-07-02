@@ -7,6 +7,7 @@ parameters:
 
     images_directory: '%kernel.project_dir%/public/images'
     fichiers_directory: '%kernel.project_dir%/public/fichiers'
+    excel_directory: '%kernel.project_dir%/public/excel'
 
 services:
     # default configuration for services in *this* file
@@ -15,6 +16,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             $fichiers_directory: '%fichiers_directory%'
+            $excel_directory: '%excel_directory%'
     
     App\Services\UploaderFichiers:
         arguments:
