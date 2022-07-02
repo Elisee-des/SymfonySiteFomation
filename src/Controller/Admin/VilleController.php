@@ -115,7 +115,34 @@ class VilleController extends AbstractController
 
             $reader = ReaderEntityFactory::createXLSXReader();
 
-            
+            //on lis le fichier
+            $reader->open($chemin);
+            //lecture de fichier
+            $excelTabDonnee = [];
+            foreach ($reader->getSheetIterator() as $sheet) {
+                foreach ($sheet->getRowIterator() as $row) {
+                    $excelTabDonnee[] = $row->toArray();
+                }
+            }
+
+            //Maitenant importation des donnes
+            for ($i=0; $i < count($excelTabDonnee); $i++) { 
+                
+                $ville = new Ville();
+
+                $ville->setNom($excelTabDonnee[$i][0]);
+
+                $em->persist($ville);
+            }
+
+            $this->addFlash(
+               'message',
+               'vous avez importer avec succes votre fichier excel'
+            );
+
+            $em->flush();
+
+            return $this->redirectToRoute('admin_ville');
 
         }
 
