@@ -156,16 +156,16 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/candidature/fichiers/{id}", name="candidature_fichiers")
+     * @Route("/candidature/suppression/{id}", name="candidature_suppression")
      */
     public function candidatureFichier(FormationRepository $formationRepository, $id): Response
     {
         $formation = $formationRepository->find($id);
+
+        dd($formation);
         $fichiers = $formation->getCandidatures();
-        // dd($formation);
-        // $fichiers = $formation->getCandidatures();
         return $this->render("admin/formation/fichiersDetail.html.twig", [
-            'fichiers' => $fichiers
+            // 'fichiers' => $fichiers
         ]);
     }
 
