@@ -17,7 +17,6 @@ class MainController extends AbstractController
     public function index(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
     {
         return $this->render('main/index.html.twig', [
-            'formations' => $formationRepository->findAll(),
             "categories" => $categorieRepository->findAll()
         ]);
     }
@@ -57,7 +56,7 @@ class MainController extends AbstractController
     public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
     {
         return $this->render('main/formation.html.twig', [
-            'formations' => $formationRepository->findAll(),
+            'formations' => $formationRepository->findBy(["isActif"=> true], ["datePublication"=>'DESC']),
         ]);
     }
 

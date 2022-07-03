@@ -8,6 +8,7 @@ use App\Form\EditFormationType;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use App\Services\UploaderService;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,7 @@ class FormationController extends AbstractController
     public function deatil(Formation $formation): Response
     {
         return $this->render('admin/formation/detail.html.twig', [
+            'id' => $formation->getId(),
             'titre' => $formation->getTitre(),
             'description' => $formation->getDescription(),
             'nombrePlace' => $formation->getNombrePlace(),
@@ -170,28 +172,39 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/candidature/formation/etat/{id}", name="gestion_etat_formation")
+     * @Route("/candidature/formation/active/{id}", name="active_formation")
      */
-    public function activationFormation(FormationRepository $formationRepository, $id): Response
+    public function activationFormation(FormationRepository $formationRepository, $id, EntityManagerInterface $em): Response
     {
         $formation = $formationRepository->find($id);
 
-        if ($formation->isIsActif() === false) {
-            $formation->setIsActif(true);
-            $formationRepository->flush();
-            $this->addFlash(
-                'message',
-                "Vous avez activer la formation. Celle-ci s'affichera dans la liste des formations disponible"
-            );
-        } elseif ($formation->isIsActif() === true) {
+        $formation->setIsActif(true);
+        $em->flush();
+        $this->addFlash(
+            'message',
+            "Vous avez activer la formation. Celle-ci s'affichera dans la liste des formations disponible"
+        );
+
+        return $this->redirectToRoute('admin_formation_liste');
+
+    }
+
+
+    /**
+     * @Route("/candidature/formation/desactive/{id}", name="desactive_formation")
+     */
+    public function desactivationFormation(FormationRepository $formationRepository, $id, EntityManagerInterface $em): Response
+    {
+        $formation = $formationRepository->find($id);
+
             $formation->setIsActif(false);
-            $formationRepository->flush();
+            $em->flush();
             $this->addFlash(
                 'message',
                 "Vous avez descativer la formation. Celle-ci n'apparaitera pas dans la liste des formations disponible"
             );
-        }
 
         return $this->redirectToRoute('admin_formation_liste');
+
     }
 }

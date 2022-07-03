@@ -36,7 +36,9 @@
 						<h3>Date de debut formation:
 							{{dateDebutFormation|date("m/d/Y")}}</h3><hr><br>
 						<h3>Date de fin formation:
-							{{dateFinFormation|date("m/d/Y")}}</h3>
+							{{dateFinFormation|date("m/d/Y")}}</h3><hr><br>
+							<a href="{{ path("admin_formation_active_formation", {id}) }}" class="btn btn-primary">Activer la formation</a>
+							<a href="{{ path("admin_formation_desactive_formation", {id}) }}" class="btn btn-danger">Desctiver la formation</a>
 					</div>
 				</div>
 			</div>
