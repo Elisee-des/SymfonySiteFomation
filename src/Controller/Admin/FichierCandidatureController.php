@@ -31,35 +31,16 @@ class FichierCandidatureController extends AbstractController
     }
 
     /**
-     * @Route("/liste/{id}", name="detail")
+     * @Route("/candidatures/{id}", name="candidatures")
      */
-    public function deatil(Formation $formation): Response
+    public function candidature(Formation $formation): Response
     {
-        return $this->render('admin/formation/detail.html.twig', [
-            'titre' => $formation->getTitre(),
-            'description' => $formation->getDescription(),
-            'nombrePlace' => $formation->getNombrePlace(),
-            'datePublication' => $formation->getDatePublication(),
-            'dateDebutFormation' => $formation->getDateDebutFormation(),
-            'dateFinFormation' => $formation->getDateFinFormation(),
-            'nomCategorie' => $formation->getCategorie()->getNom(),
-            ''
-        ]);
-    }
+        $titre = $formation->getTitre();
+        $candidats = $formation->getCandidatures();
 
-
-
-    /**
-     * @Route("/candidature/suppression/{id}", name="candidature_suppression")
-     */
-    public function candidatureFichier(FormationRepository $formationRepository, $id): Response
-    {
-        $formation = $formationRepository->find($id);
-
-        dd($formation);
-        $fichiers = $formation->getCandidatures();
-        return $this->render("admin/formation/fichiersDetail.html.twig", [
-            // 'fichiers' => $fichiers
+        return $this->render("admin/formation/fichiersCandidatures.html.twig", [
+            'titre' => $titre,
+            'candidats' => $candidats
         ]);
     }
 

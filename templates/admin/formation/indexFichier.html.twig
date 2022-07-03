@@ -26,7 +26,7 @@
 							<td>{{formation.titre}}</td>
 							<td>{{formation.categorie.nom}}</td>
 							<td>
-								<a href="{{ path("admin_formation_candidature", {id: formation.id}) }}">candidature({{formation.candidatures|length}})</a>
+								<a href="{{ path("admin_formations_candidatures", {id: formation.id}) }}">candidature({{formation.candidatures|length}})</a>
 							</td>
 						</tr>
 					{% endfor %}
