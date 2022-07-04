@@ -81,6 +81,11 @@ class Candidature
      */
     private $diplome;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
+
     public function __construct()
     {
         $this->pieceJointe = new ArrayCollection();
@@ -240,6 +245,18 @@ class Candidature
     public function setDiplome(string $diplome): self
     {
         $this->diplome = $diplome;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
