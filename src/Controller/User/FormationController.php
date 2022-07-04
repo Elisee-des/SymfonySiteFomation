@@ -20,7 +20,6 @@ class FormationController extends AbstractController
     public function postul(Request $request, EntityManagerInterface $em, FormationRepository $formationRepository, $id): Response
     {
         $candidature = new Candidature();
-        $fichiers = new PieceJointe();
         $formation = $formationRepository->find($id);
         // dd($formation);
 
@@ -41,10 +40,10 @@ class FormationController extends AbstractController
                 $nomFichier->move($this->getParameter("images_directory"), $nouveauNom);
             }
 
-            $fichiers->setFichiers($nouveauNom);
-            $fichiers->setCandidature($candidature);
+            // $fichiers->setFichiers($nouveauNom);
+            // $fichiers->setCandidature($candidature);
 
-            $em->persist($fichiers);
+            // $em->persist($fichiers);
             $em->persist($candidature);
             // dd($candidature);
             $em->flush();
@@ -119,7 +118,7 @@ class FormationController extends AbstractController
     public function postule(Request $request, EntityManagerInterface $em, FormationRepository $formationRepository, $id): Response
     {
         $candidature = new Candidature();
-        $fichiers = new PieceJointe();
+        // $fichiers = new PieceJointe();
         $formation = $formationRepository->find($id);
         // dd($formation);
 
@@ -140,10 +139,10 @@ class FormationController extends AbstractController
                 $nomFichier->move($this->getParameter("images_directory"), $nouveauNom);
             }
 
-            $fichiers->setFichiers($nouveauNom);
-            $fichiers->setCandidature($candidature);
+            // $fichiers->setFichiers($nouveauNom);
+            // $fichiers->setCandidature($candidature);
 
-            $em->persist($fichiers);
+            // $em->persist($fichiers);
             $em->persist($candidature);
             // dd($candidature);
             $em->flush();

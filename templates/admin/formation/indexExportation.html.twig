@@ -8,8 +8,7 @@
 	<div class="card">
 		<br>
 		<div class="card-hearder text-center">
-			<h2>Gestion des candidatures ayant ete retenue</h2>
-            <span>NB: veuillez</span>
+			<h2>Exporter en Excel la liste des candidats ayant ete retenue</h2>
 		</div>
 
 		<div>
@@ -22,6 +21,7 @@
 						<th>Theme de formation</th>
 						<th>Categorie de formation</th>
 						<th>Retenu</th>
+						<th>Donneés</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,7 +30,10 @@
 							<td>{{formation.titre}}</td>
 							<td>{{formation.categorie.nom}}</td>
 							<td>
-								<a href="{{ path("admin_formation_retenu", {id: formation.id}) }}">voir les retenus</a>
+								<a href="{{ path("admin_formation_retenu", {id: formation.id}) }}" class="btn btn-outline-primary">Voir liste</a>
+							</td>
+							<td>
+								<a href="{{ path("admin_formation_exportation", {id: formation.id}) }}" class="btn btn-outline-dark" >Exporter</a>
 							</td>
 						</tr>
 					{% endfor %}
