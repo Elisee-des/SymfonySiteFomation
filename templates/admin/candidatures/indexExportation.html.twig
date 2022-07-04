@@ -30,10 +30,10 @@
 							<td>{{formation.titre}}</td>
 							<td>{{formation.categorie.nom}}</td>
 							<td>
-								<a href="{{ path("admin_formation_retenu", {id: formation.id}) }}" class="btn btn-outline-primary">Voir liste</a>
+								<a href="{{ path("admin_candidature_formation_retenu", {id: formation.id}) }}" class="btn btn-outline-primary">Voir liste</a>
 							</td>
 							<td>
-								<a href="{{ path("admin_formation_exportation", {id: formation.id}) }}" class="btn btn-outline-dark" >Exporter</a>
+								<a href="{{ path("admin_candidature_formation_retenu", {id: formation.id}) }}" class="btn btn-outline-dark" >Exporter</a>
 							</td>
 						</tr>
 					{% endfor %}

@@ -8,8 +8,10 @@ use App\Form\EditCandidaturesType;
 use App\Form\EditCandidatureType;
 use App\Form\StatusGestionType;
 use App\Repository\CandidatureRepository;
+use App\Repository\FormationRepository;
 use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -138,4 +140,47 @@ class CandidaturesController extends AbstractController
         );
     }
 
+    /**
+     * @Route("formation/listing", name="formation_listing")
+     */
+    public function listing(FormationRepository $formationRepository): Response
+    {
+
+        return $this->render('admin/candidatures/indexExportation.html.twig', [
+            'formations' => $formationRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("formation/retenue/{id}", name="formation_retenu")
+     */
+    public function candidature($id, FormationRepository $formationRepository): Response
+    {
+        $formation = $formationRepository->find($id);
+        $retenues = $formation->getCandidatures();
+
+        return $this->render('admin/candidatures/retenuCandidature.html.twig', [
+            'titre' => $formation->getTitre(),
+            'retenues' => $retenues,
+        ]);
+    }
+
+    /**
+     * @Route("exportation/{id}", name="exportation")
+     */
+    public function exportation(): Response
+    {
+        $feuille = new Spreadsheet();
+
+        //on initialise la feuille creer
+        $feuille->getProperties()
+            ->setTitle('Candidature')
+            ->setDescription('Exportation des candidatures en fichier excel')
+            ->setSubject("Utilisation de php excel por l'exportation")
+            ->setCreated("site-formation.com");
+
+        return $this->render('admin/index.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
 }
