@@ -2,10 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Candidature;
 use App\Entity\Formation;
 use App\Entity\User;
 use App\Form\EditFormationType;
 use App\Form\FormationType;
+use App\Form\StatusGestionType;
 use App\Repository\FormationRepository;
 use App\Services\UploaderService;
 use Doctrine\ORM\EntityManager;
@@ -206,5 +208,34 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('admin_formation_liste');
 
+    }
+
+
+    /**
+     * @Route("/status/{id}", name="gestion_status")
+     */
+    public function gestionStatus(Candidature $candidature, EntityManagerInterface $em ,Request $request): Response
+    {
+
+        $form = $this->createForm(StatusGestionType::class);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $status = $request->get('status_gestion')['status'];
+            $candidature->setStatus($status);
+
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "la candidature" . $candidature->getId() . " a ete accepté"
+            );
+            return $this->redirectToRoute('admin_formation_liste');
+        }
+
+        return $this->render('admin/formation/status.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

@@ -24,6 +24,7 @@
 						<th>Email</th>
 						<th>Telephone</th>
 						<th>DateInscription</th>
+						<th>Status</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -37,7 +38,16 @@
 							<td>{{candidat.telephone}}</td>
 							<td>{{candidat.dateCretion|date("m/d/Y")}}</td>
 							<td>
-								<a href="{{ path("admin_formation_candidature_suppression", {id: candidat.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sur de vouloir supprimer cette candidature ?')">supprimer</a>
+								{% if candidat.status == 'accepter' %}
+									<button class="btn btn-success">Accepter</button>
+								{% elseif candidat.status == 'attente' %}
+									<button class="btn btn-warning">Attente</button>
+								{% elseif candidat.status == 'rejeter' %}
+									<button class="btn btn-dark">Rejeter</button>
+								{% endif %}
+							</td>
+							<td>
+								<a href="{{ path("admin_formation_gestion_status", {id: candidat.id}) }} " class="btn btn-secondary">Status</a>
 								<a href="{{ path("admin_formation_candidature_suppression", {id: candidat.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sur de vouloir supprimer cette candidature ?')">supprimer</a>
 							</td>
 						</tr>

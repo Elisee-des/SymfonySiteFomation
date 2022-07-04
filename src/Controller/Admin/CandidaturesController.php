@@ -6,6 +6,7 @@ use App\Entity\Candidature;
 use App\Form\CandidatureType;
 use App\Form\EditCandidaturesType;
 use App\Form\EditCandidatureType;
+use App\Form\StatusGestionType;
 use App\Repository\CandidatureRepository;
 use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,14 +43,14 @@ class CandidaturesController extends AbstractController
         $form = $this->createForm(CandidatureType::class, $candidature);
 
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $cv = $request->files->get("candidature")["cv"];
             $diplome = $request->files->get("candidature")["diplome"];
             $lettreMotivation = $request->files->get("candidature")["lettre_motivation"];
             $photo = $request->files->get("candidature")["photo"];
-            
+
             $nomNouveauCv = $uploader->upload($cv);
             $nomNouveauDiplome = $uploader->upload($diplome);
             $nomNouveauLettreMotivation = $uploader->upload($lettreMotivation);
@@ -83,16 +84,16 @@ class CandidaturesController extends AbstractController
     {
         // dd($candidature);
         $form = $this->createForm(EditCandidatureType::class, $candidature);
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
-             
+
             $cv = $request->files->get("edit_candidature")["cv"];
             $diplome = $request->files->get("edit_candidature")["diplome"];
             $lettreMotivation = $request->files->get("edit_candidature")["lettre_motivation"];
             $photo = $request->files->get("edit_candidature")["photo"];
-            
+
             $nomNouveauCv = $uploader->upload($cv);
             $nomNouveauDiplome = $uploader->upload($diplome);
             $nomNouveauLettreMotivation = $uploader->upload($lettreMotivation);
@@ -116,7 +117,7 @@ class CandidaturesController extends AbstractController
 
         return $this->render('admin/candidatures/edition.html.twig', [
             'form' => $form->createView(),
-            "nomCandidature"=>$candidature->getNom()
+            "nomCandidature" => $candidature->getNom()
         ]);
     }
 
@@ -125,15 +126,16 @@ class CandidaturesController extends AbstractController
      */
     public function suppression(Candidature $candidature, EntityManagerInterface $em, Request $request): Response
     {
-       
-            $em->remove($candidature);
-            $em->flush();
 
-            return $this->redirectToRoute('admin_candidature_liste');
+        $em->remove($candidature);
+        $em->flush();
 
-            $this->addFlash(
-                'success',
-                "la candidature" . $candidature->getId() . " a ete suppreimé avec success"
-            );
+        return $this->redirectToRoute('admin_candidature_liste');
+
+        $this->addFlash(
+            'success',
+            "la candidature" . $candidature->getId() . " a ete suppreimé avec success"
+        );
     }
+
 }
