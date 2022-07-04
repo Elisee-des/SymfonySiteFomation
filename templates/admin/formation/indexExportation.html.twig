@@ -1,0 +1,48 @@
+{% extends "base.admin.html.twig" %}
+
+{% block titre %}Gestion des candidature etant retenue
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<br>
+		<div class="card-hearder text-center">
+			<h2>Gestion des candidatures ayant ete retenue</h2>
+            <span>NB: veuillez</span>
+		</div>
+
+		<div>
+			<a href="{{ path("admin_formation_creation") }}" class="btn btn-primary float-right btnAction">Ajouter une formation</a>
+		</div>
+		<div class="card-body">
+			<table id="example" class="table table-striped nowrap" style="width:100%">
+				<thead>
+					<tr>
+						<th>Theme de formation</th>
+						<th>Categorie de formation</th>
+						<th>Retenu</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for formation in formations %}
+						<tr>
+							<td>{{formation.titre}}</td>
+							<td>{{formation.categorie.nom}}</td>
+							<td>
+								<a href="{{ path("admin_formation_retenu", {id: formation.id}) }}">voir retenue</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).ready(function () {
+$('#example').DataTable();
+});
+	</script>
+{% endblock %}

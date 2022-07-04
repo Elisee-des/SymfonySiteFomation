@@ -84,7 +84,7 @@ class Candidature
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private $status='attente';
 
     public function __construct()
     {
