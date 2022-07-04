@@ -25,12 +25,13 @@ class ExportExcelController extends AbstractController
     /**
      * @Route("/admin/formation/retenue/{id}", name="admin_formation_retenu")
      */
-    public function candidature(CandidatureRepository $candidatureRepository): Response
+    public function candidature($id, FormationRepository $formationRepository): Response
     {
-        $retenues = $candidatureRepository->findBy(["status"=>"accepter"], ["id"=>"DESC"]);
+        $formation = $formationRepository->find($id);
+        $retenues = $formation->getCandidatures();
 
         return $this->render('admin/formation/retenuCandidature.html.twig', [
-            '',
+            'titre' => $formation->getTitre(),
             'retenues' => $retenues,
         ]);
     }
