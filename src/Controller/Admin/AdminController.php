@@ -2,9 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\CategorieType;
 use App\Form\EditPasswordUserType;
 use App\Form\EditPhotoUserType;
 use App\Form\ModificationProfilType;
+use App\Repository\CandidatureRepository;
+use App\Repository\CategorieRepository;
+use App\Repository\FormationRepository;
+use App\Repository\UserRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +26,31 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
-    {
+    public function index(
+        FormationRepository $formationRepository,
+        CandidatureRepository $candidatureRepository,
+        CategorieRepository $categorieRepository,
+        UserRepository $userRepository,
+        VilleRepository $villeRepository
+    ): Response {
+        $formations = $formationRepository->findAll();
+        $candidatures = $candidatureRepository->findAll();
+        $categories = $categorieRepository->findAll();
+        $users = $userRepository->findAll();
+        $villes = $villeRepository->findAll();
+
+        $totalFormation = count($formations);
+        $totalCategorie = count($categories);
+        $totalVille = count($villes);
+        $totalCandidature = count($candidatures);
+        $totalUser = count($users);
+
         return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+            'totalFormations' => $totalFormation,
+            'totalCandidatures' => $totalCandidature,
+            'totalCategories' => $totalCategorie,
+            'totalVille' => $totalVille,
+            'totalUser' => $totalUser
         ]);
     }
 

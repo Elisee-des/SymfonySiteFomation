@@ -13,19 +13,19 @@
 				<div class="row">
 					<div class="col-6">
 						<div class="card text-lelf">
-							<h2>Total Formation</h2><hr>
+							<h2>Total Formation: {{totalFormations}}</h2><hr>
 							<div>
 								<a href="" class="btn btn-outline-primary">Aller voir</a>
 							</div>
 						</div>
 						<div class="card text-lelf">
-							<h2>Total Categorie</h2><hr>
+							<h2>Total Categorie: {{totalCategories}}</h2><hr>
 							<div>
 								<a href="" class="btn btn-outline-primary">Aller voir</a>
 							</div>
 						</div>
 						<div class="card text-lelf">
-							<h2>Total Candidature</h2><hr>
+							<h2>Total Candidature: {{totalCandidatures}}</h2><hr>
 							<div>
 								<a href="" class="btn btn-outline-primary">Aller voir</a>
 							</div>
@@ -33,22 +33,22 @@
 					</div>
 					<div class="col-6 text-lelf">
 						<div class="card">
-							<h2>Site</h2><hr>
+							<h2>Naviguer sur le Site</h2><hr>
 							<div>
-								<a href="" class="btn btn-outline-dark">Accueil</a>
-								<a href="" class="btn btn-outline-dark">categories</a>
-								<a href="" class="btn btn-outline-dark">Formation</a>
-								<a href="" class="btn btn-outline-dark">Fichiers</a>
+								<a href="{{ path('main') }}" class="btn btn-outline-dark">Accueil</a>
+								<a href="{{ path('categories') }}" class="btn btn-outline-dark">categories</a>
+								<a href="{{ path('formations') }}" class="btn btn-outline-dark">Formation</a>
+								<a href="{{ path('admin_formations_liste') }}" class="btn btn-outline-dark">Fichiers</a>
 							</div>
 						</div>
 						<div class="card text-lelf">
-							<h2>Total Ville</h2><hr>
+							<h2>Total Ville: {{totalVille}}</h2><hr>
 							<div>
 								<a href="" class="btn btn-outline-primary">Aller voir</a>
 							</div>
 						</div>
 						<div class="card text-lelf">
-							<h2>Total Utilisateur</h2><hr>
+							<h2>Total Utilisateur {{totalUser}}</h2><hr>
 							<div>
 								<a href="" class="btn btn-outline-primary">Aller voir</a>
 							</div>

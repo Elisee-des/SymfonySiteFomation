@@ -27,9 +27,10 @@ class FormationController extends AbstractController
      */
     public function index(FormationRepository $formationRepository): Response
     {
-
+        $formations = $formationRepository->findAll();
+        
         return $this->render('admin/formation/index.html.twig', [
-            'formations' => $formationRepository->findAll()
+            'formations' => $formations,
         ]);
     }
 
