@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * @Route("/admin", name="admin_")
@@ -22,8 +24,13 @@ class UsersController extends AbstractController
     /**
      * @Route("/users", name="utilisateur_liste")
      */
-    public function index(UserRepository $userRepo): Response
+    public function index(UserRepository $userRepo, CacheInterface $cacheItemInterface): Response
     {
+        $user = $cacheItemInterface->get('utilisateur_liste', function(ItemInterface $itemInterface) use ($userRepo){
+            $itemInterface->expiresAfter(3000);
+            return $userRepo->findAll();
+        });
+
         return $this->render('admin/users/index.html.twig', [
             'users' => $userRepo->findAll(),
         ]);

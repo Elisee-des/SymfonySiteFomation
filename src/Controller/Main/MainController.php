@@ -8,6 +8,8 @@ use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class MainController extends AbstractController
 {
@@ -53,10 +55,15 @@ class MainController extends AbstractController
     /**
      * @Route("/formation", name="formations")
      */
-    public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
+    public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository, CacheInterface $cacheInterface): Response
     {
+        $formation = $cacheInterface->get("formation_liste_main", function(ItemInterface $itemInterface) use ($formationRepository){
+            $itemInterface->expiresAfter(20);
+            return $formationRepository->findBy(["isActif"=> true], ["datePublication"=>'DESC']);
+        });
+
         return $this->render('main/formation.html.twig', [
-            'formations' => $formationRepository->findBy(["isActif"=> true], ["datePublication"=>'DESC']),
+            "formations"=> $formationRepository->findBy(["isActif"=> true], ["datePublication"=>'DESC'])
         ]);
     }
 
@@ -83,5 +90,11 @@ class MainController extends AbstractController
             "dateFinFormation" => $dateFinFormation,
             "datePublication" => $datePublication
         ]);
+    }
+
+    public function fonctionLongue()
+    {
+        sleep(3);
+        return " cool";
     }
 }

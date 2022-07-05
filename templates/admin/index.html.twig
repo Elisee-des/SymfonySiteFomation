@@ -1,5 +1,62 @@
 {% extends "base.admin.html.twig" %}
 
-{% block titre %}{% endblock %}
+{% block titre %}
+	Tableau de bord
+{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+
+	<div class="main">
+		<h2>Tableau de bord</h2><br>
+		<div class="card shadow border-dark" style="width: 100%;">
+			<div class="container"><br>
+				<div class="row">
+					<div class="col-6">
+						<div class="card text-lelf">
+							<h2>Total Formation</h2><hr>
+							<div>
+								<a href="" class="btn btn-outline-primary">Aller voir</a>
+							</div>
+						</div>
+						<div class="card text-lelf">
+							<h2>Total Categorie</h2><hr>
+							<div>
+								<a href="" class="btn btn-outline-primary">Aller voir</a>
+							</div>
+						</div>
+						<div class="card text-lelf">
+							<h2>Total Candidature</h2><hr>
+							<div>
+								<a href="" class="btn btn-outline-primary">Aller voir</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 text-lelf">
+						<div class="card">
+							<h2>Site</h2><hr>
+							<div>
+								<a href="" class="btn btn-outline-dark">Accueil</a>
+								<a href="" class="btn btn-outline-dark">categories</a>
+								<a href="" class="btn btn-outline-dark">Formation</a>
+								<a href="" class="btn btn-outline-dark">Fichiers</a>
+							</div>
+						</div>
+						<div class="card text-lelf">
+							<h2>Total Ville</h2><hr>
+							<div>
+								<a href="" class="btn btn-outline-primary">Aller voir</a>
+							</div>
+						</div>
+						<div class="card text-lelf">
+							<h2>Total Utilisateur</h2><hr>
+							<div>
+								<a href="" class="btn btn-outline-primary">Aller voir</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
