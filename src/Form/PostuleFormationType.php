@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class PostuleFormationType extends AbstractType
 {
@@ -22,11 +23,57 @@ class PostuleFormationType extends AbstractType
             ->add('email', EmailType::class)
             ->add('telephone', NumberType::class)
             ->add('niveauEtude', TextType::class)
-            ->add('fichiers', FileType::class, [
-                'label' => 'Piece jointe(cv, lettre de motivation, cnib)',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => true 
+            ->add('cv', FileType::class, [
+                'label' => 'CV',
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
+            ])
+            ->add('diplome', FileType::class, [
+                'label' => 'Diplomes',
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
+            ])
+            ->add('lettre_motivation', FileType::class, [
+                'label' => 'Lettre de motivation',
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
+            ])
+            ->add('photo', FileType::class, [
+                'label' => "Choisir une recente photo d'identité",
+                "constraints" => [
+                    new File([
+                        "maxSize" => "2M",
+                        "mimeTypes" => [
+                            "image/jpeg",
+                            "image/png"
+                        ]
+                    ]),
+                    // "invalid_message"=>"Votre fichier ne dois pas depasser 2M et dois etre JPEG ou PNG"
+                ]
             ])
             ->add('Postuler', SubmitType::class);
     }

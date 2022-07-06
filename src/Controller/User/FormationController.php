@@ -6,6 +6,7 @@ use App\Entity\Candidature;
 use App\Entity\PieceJointe;
 use App\Form\PostuleFormationType;
 use App\Repository\FormationRepository;
+use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,35 +18,36 @@ class FormationController extends AbstractController
     /**
      * @Route("/utilisateur/formations/postuler/{id}", name="user_postule_foramtion")
      */
-    public function postul(Request $request, EntityManagerInterface $em, FormationRepository $formationRepository, $id): Response
+    public function postul(Request $request, EntityManagerInterface $em, FormationRepository $formationRepository, $id, UploaderFichiers $uploader): Response
     {
         $candidature = new Candidature();
         $formation = $formationRepository->find($id);
-        // dd($formation);
+        $user = $this->getUser();
 
         $form = $this->createForm(PostuleFormationType::class, $candidature);
 
-        $user = $this->getUser();
-        $candidature->setUser($user);
-        $candidature->setFormation($formation);
         $form->handleRequest($request);
-        $nom = md5(uniqid());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $nomFichiers =  $request->files->get("postule_formation")["fichiers"];
 
-            foreach ($nomFichiers as $nomFichier) {
-                $nouveauNom = $nom . "." . $nomFichier->guessExtension();
+            $cv = $request->files->get("postule_formation")["cv"];
+            $diplome = $request->files->get("postule_formation")["diplome"];
+            $lettreMotivation = $request->files->get("postule_formation")["lettre_motivation"];
+            $photo = $request->files->get("postule_formation")["photo"];
 
-                $nomFichier->move($this->getParameter("images_directory"), $nouveauNom);
-            }
+            $nomNouveauCv = $uploader->upload($cv);
+            $nomNouveauDiplome = $uploader->upload($diplome);
+            $nomNouveauLettreMotivation = $uploader->upload($lettreMotivation);
+            $nomNouveauPhoto = $uploader->upload($photo);
 
-            // $fichiers->setFichiers($nouveauNom);
-            // $fichiers->setCandidature($candidature);
+            $candidature->setUser($user);
+            $candidature->setFormation($formation);
+            $candidature->setCv($nomNouveauCv);
+            $candidature->setDiplome($nomNouveauDiplome);
+            $candidature->setLettreMotivation($nomNouveauLettreMotivation);
+            $candidature->setPhoto($nomNouveauPhoto);
 
-            // $em->persist($fichiers);
             $em->persist($candidature);
-            // dd($candidature);
             $em->flush();
 
             $this->addFlash(
@@ -53,7 +55,7 @@ class FormationController extends AbstractController
                 'Vous avez posuler avec succes a cette formation. Nous vous concterons apres selection de dossier'
             );
 
-            return $this->redirectToRoute('formations');
+            return $this->redirectToRoute('utilisateur_candidature_liste');
         }
 
         return $this->render('user/candidature.html.twig', [
@@ -159,5 +161,4 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }
