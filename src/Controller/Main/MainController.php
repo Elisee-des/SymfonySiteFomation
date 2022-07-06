@@ -2,10 +2,10 @@
 
 namespace App\Controller\Main;
 
-use App\Entity\Categorie;
 use App\Form\ContactMainType;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
+use Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +21,22 @@ class MainController extends AbstractController
     public function index(Request $request, CategorieRepository $categorieRepository): Response
     {
         $form = $this->createForm(ContactMainType::class);
-        // $emailTo =  $contact->get('email')->getData();
-        // $sujet = $contact->get('sujet')->getData();
-        // $message = $contact->get('message')->getData();
-        // $nom = $contact->get('nom')->getData();
+
+        $contact = $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            
+            $sujet = $contact->get('sujet')->getData();
+            $message = $contact->get('message')->getData();
+
+            $mail = new Mail();
+            $mail->sendToAdmin($message, $sujet);
+
+            $this->addFlash(
+               'message',
+               'Votre email a bien ete envoyez. nous recontacterons sous peu'
+            );
+        }
 
         return $this->render('main/index.html.twig', [
             "categories" => $categorieRepository->findAll(),
