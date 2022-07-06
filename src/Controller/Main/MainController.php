@@ -3,9 +3,11 @@
 namespace App\Controller\Main;
 
 use App\Entity\Categorie;
+use App\Form\ContactMainType;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -16,10 +18,17 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="main")
      */
-    public function index(FormationRepository $formationRepository, CategorieRepository $categorieRepository): Response
+    public function index(Request $request, CategorieRepository $categorieRepository): Response
     {
+        $form = $this->createForm(ContactMainType::class);
+        // $emailTo =  $contact->get('email')->getData();
+        // $sujet = $contact->get('sujet')->getData();
+        // $message = $contact->get('message')->getData();
+        // $nom = $contact->get('nom')->getData();
+
         return $this->render('main/index.html.twig', [
-            "categories" => $categorieRepository->findAll()
+            "categories" => $categorieRepository->findAll(),
+            "form"=>$form->createView()
         ]);
     }
 
@@ -45,9 +54,9 @@ class MainController extends AbstractController
         $petitedescription = $categories->getPetitedescription();
 
         return $this->render('main/detailCategories.html.twig', [
-            "nom"=>$nom,
-            "description"=>$description,
-            "petitedescription"=>$petitedescription,
+            "nom" => $nom,
+            "description" => $description,
+            "petitedescription" => $petitedescription,
             'formations' => $formation
         ]);
     }
@@ -57,13 +66,13 @@ class MainController extends AbstractController
      */
     public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository, CacheInterface $cacheInterface): Response
     {
-        $formation = $cacheInterface->get("formation_liste_main", function(ItemInterface $itemInterface) use ($formationRepository){
+        $formation = $cacheInterface->get("formation_liste_main", function (ItemInterface $itemInterface) use ($formationRepository) {
             $itemInterface->expiresAfter(20);
-            return $formationRepository->findBy(["isActif"=> true], ["datePublication"=>'DESC']);
+            return $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC']);
         });
 
         return $this->render('main/formation.html.twig', [
-            "formations"=> $formationRepository->findBy(["isActif"=> true], ["datePublication"=>'DESC'])
+            "formations" => $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC'])
         ]);
     }
 
@@ -80,7 +89,7 @@ class MainController extends AbstractController
         $dateDebutFormation = $formation->getDateDebutFormation();
         $dateFinFormation = $formation->getDateFinFormation();
         $datePublication = $formation->getDatePublication();
-        
+
         return $this->render('main/detailFormation.html.twig', [
             "formation" => $formation,
             "titre" => $titre,
@@ -97,4 +106,5 @@ class MainController extends AbstractController
         sleep(3);
         return " cool";
     }
+
 }
