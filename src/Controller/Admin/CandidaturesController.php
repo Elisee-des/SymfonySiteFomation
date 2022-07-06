@@ -12,6 +12,7 @@ use App\Repository\FormationRepository;
 use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,15 @@ class CandidaturesController extends AbstractController
     /**
      * @Route("/liste/", name="liste")
      */
-    public function index(FormationRepository $formationRepository): Response
+    public function index(FormationRepository $formationRepository, PaginatorInterface $paginator, Request $request): Response
     {
 
+        $donnees = $formationRepository->findAll(["id" => "DESC"]);
+
+        $formation = $paginator->paginate($donnees, $request->query->getInt('page', 1), 3);
+
         return $this->render('admin/candidatures/index.html.twig', [
-            'formations' => $formationRepository->findAll(["id" => "DESC"]),
+            'formations' => $formation
         ]);
     }
 
