@@ -17,7 +17,7 @@
 			<a href="{{ path("admin_creation_ville") }}" class="btn btn-primary float-right">Ajouter une ville</a>
 		</div>
 		<div class="card-body">
-			<table class="table table-striped">
+			<table id="example" class="table table-striped">
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
@@ -41,10 +41,11 @@
 		</div>
 	</div>
 {% endblock %}
-{% block javascripts %}
-	<script>
-		$(document).ready(function () {
-$('#example').DataTable();
-});
-	</script>
-{% endblock %}
+	{% block javascripts %}
+
+		<script>
+			$(document).ready(function () {
+				$('#example').DataTable();
+			});
+		</script>
+	{% endblock %}

@@ -4,10 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Candidature;
 use App\Form\CandidatureType;
-use App\Form\EditCandidaturesType;
 use App\Form\EditCandidatureType;
-use App\Form\StatusGestionType;
-use App\Repository\CandidatureRepository;
 use App\Repository\FormationRepository;
 use App\Services\UploaderFichiers;
 use Doctrine\ORM\EntityManagerInterface;
