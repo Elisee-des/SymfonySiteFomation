@@ -77,12 +77,13 @@ class VilleController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La ville de" . $ville->getNom() . " a ete modifier avec success"
+                "La ville de " . $ville->getNom() . " a ete modifier avec success"
             );
             return $this->redirectToRoute('admin_ville');
         }
         return $this->render('admin/ville/edition.html.twig', [
             'form' => $form->createView(),
+            'idVille'=> $ville->getId()
         ]);
     }
 
@@ -139,7 +140,7 @@ class VilleController extends AbstractController
             }
 
             $this->addFlash(
-                'message',
+                'success',
                 'vous avez importer avec succes votre fichier excel'
             );
 

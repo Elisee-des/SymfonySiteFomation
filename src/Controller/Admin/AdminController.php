@@ -80,7 +80,7 @@ class AdminController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'message',
+                'success',
                 'Vous avez modifier avec succes votre profil'
             );
 
@@ -119,7 +119,7 @@ class AdminController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'message',
+                'success',
                 'Vous avez modifier avec succes votre photo de profil'
             );
 
@@ -153,7 +153,7 @@ class AdminController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'message',
+                'success',
                 'Vous avez modifier avec succes votre mot de passe'
             );
 

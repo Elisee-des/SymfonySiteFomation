@@ -43,10 +43,10 @@ class AdminContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($request);
             $email = new Mail();
-            $email->send($emailTo, $nom, $sujet, $message);
+            $email->sendFromAdmin($emailTo, $nom, $sujet, $message);
 
             $this->addFlash(
-                'message',
+                'success',
                 "Votre email a bien ete envoyez. Nous vous contacterons bientot"
             );
 
@@ -99,7 +99,7 @@ class AdminContactController extends AbstractController
             curl_close($apiUrl);
 
             $this->addFlash(
-                'message',
+                'success',
                 'Votre sms a ete envoyez avec success'
             );
 

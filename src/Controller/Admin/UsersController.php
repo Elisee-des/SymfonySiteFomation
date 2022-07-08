@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\EditUserType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Services\UploaderImages;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -39,7 +40,7 @@ class UsersController extends AbstractController
     /**
      * @Route("/users/creation", name="utilisateur_creation")
      */
-    public function creation(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasherInterface): Response
+    public function creation(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasherInterface, UploaderImages $uploaderImages): Response
     {
         $user  = new User();
 
@@ -51,13 +52,13 @@ class UsersController extends AbstractController
 
             $nom = uniqid();
 
-            $nomImage = $form->get("photoFile")->getData();
+            dd($request);
+            $nomImage = $request->files->get("user")["photo"];
+
 
             $ancienPassword = $form->get("password")->getData();
 
-            $nouveauNom = $nom . "." . $nomImage->guessExtension();
-
-            $nomImage->move($this->getParameter("images_directory"), $nouveauNom);
+            $nouveauNom = $uploaderImages->upload($nomImage);
 
             $nouveauPassword = $passwordHasherInterface->hashPassword($user, $ancienPassword);
 

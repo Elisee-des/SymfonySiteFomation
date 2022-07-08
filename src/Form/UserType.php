@@ -48,8 +48,7 @@ class UserType extends AbstractType
                 "multiple" => true,
                 "label" => "Definir le role"
             ])
-            ->add('photoFile', FileType::class, [
-                "mapped" => false,
+            ->add('photo', FileType::class, [
                 "attr" => [
                     "label" => "Ajouter un image"
                 ],

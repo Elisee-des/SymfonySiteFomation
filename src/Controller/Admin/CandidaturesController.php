@@ -49,6 +49,7 @@ class CandidaturesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($request);
 
             $cv = $request->files->get("candidature")["cv"];
             $diplome = $request->files->get("candidature")["diplome"];

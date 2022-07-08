@@ -32,7 +32,8 @@ class FormationType extends AbstractType
                         "maxSize"=> "2M",
                         "mimeTypes" => [
                             "image/jpeg",
-                            "image/png"
+                            "image/png",
+                            "image/jpg",
                         ]
                     ])
                 ]
