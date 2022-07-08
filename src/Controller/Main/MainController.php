@@ -2,9 +2,13 @@
 
 namespace App\Controller\Main;
 
+use App\Entity\Candidature;
+use App\Entity\User;
+use App\Form\CandidatureType;
 use App\Form\ContactMainType;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,27 +25,28 @@ class MainController extends AbstractController
      */
     public function index(Request $request, CategorieRepository $categorieRepository): Response
     {
-        $form = $this->createForm(ContactMainType::class);
 
-        $contact = $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            
-            $sujet = $contact->get('sujet')->getData();
-            $message = $contact->get('message')->getData();
+        // $form = $this->createForm(ContactMainType::class);
 
-            $mail = new Mail();
-            $mail->sendToAdmin($message, $sujet);
+        // $contact = $form->handleRequest($request);
 
-            $this->addFlash(
-               'message',
-               'Votre email a bien ete envoyez. nous recontacterons sous peu'
-            );
-        }
+        // if ($form->isSubmitted() && $form->isValid()) { 
+
+        //     $sujet = $contact->get('sujet')->getData();
+        //     $message = $contact->get('message')->getData();
+
+        //     $mail = new Mail();
+        //     $mail->sendToAdmin($message, $sujet);
+
+        //     $this->addFlash(
+        //        'message',
+        //        'Votre email a bien ete envoyez. nous recontacterons sous peu'
+        //     );
+        // }
 
         return $this->render('main/index.html.twig', [
             "categories" => $categorieRepository->findAll(),
-            "form"=>$form->createView()
+            // "form"=>$form->createView()
         ]);
     }
 
@@ -77,10 +82,13 @@ class MainController extends AbstractController
     /**
      * @Route("/formation", name="formations")
      */
-    public function formation(FormationRepository $formationRepository, 
-    CategorieRepository $categorieRepository,
-     CacheInterface $cacheInterface, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function formation(
+        FormationRepository $formationRepository,
+        CategorieRepository $categorieRepository,
+        CacheInterface $cacheInterface,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
         // $formation = $cacheInterface->get("formation_liste_main", function (ItemInterface $itemInterface) use ($formationRepository) {
         //     $itemInterface->expiresAfter(20);
         //     return $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC']);
@@ -126,5 +134,4 @@ class MainController extends AbstractController
         sleep(3);
         return " cool";
     }
-
 }

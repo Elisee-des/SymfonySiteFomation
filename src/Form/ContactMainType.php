@@ -15,31 +15,35 @@ class ContactMainType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                "attr"=>[
-                    'class'=>'form-control'
+                "attr" => [
+                    'class' => 'form-control',
+                    'placeholder' => "Veuilez saisir votre non"
                 ]
             ])
             ->add('email', EmailType::class, [
-                "attr"=>[
-                    'class'=>'form-control'
+                "attr" => [
+                    'class' => 'form-control',
+                    'placeholder' => "Ici Votre Email"
                 ]
             ])
             ->add('sujet', TextType::class, [
-                "attr"=>[
-                    'class'=>'form-control'
+                "attr" => [
+                    'class' => 'form-control',
+                    'placeholder' => "Ici le sujet de votre message"
                 ]
             ])
             ->add('message', TextType::class, [
-                "attr"=>[
-                    'class'=>'form-control'
+                "attr" => [
+                    'class' => 'form-control',
+                    'placeholder' => "Ici votre message"
                 ]
             ])
             ->add('Envoyez', SubmitType::class, [
-                "attr"=>[
-                    'class'=>'form-control'
+                "attr" => [
+                    'class' => 'form-control',
+                    'placeholder' => "Ici votre message"
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

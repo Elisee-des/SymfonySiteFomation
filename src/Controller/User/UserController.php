@@ -4,14 +4,11 @@ namespace App\Controller\User;
 
 use App\Entity\Candidature;
 use App\Entity\PieceJointe;
+use App\Entity\User;
 use App\Form\ContactType;
 use App\Form\EditPasswordUserType;
 use App\Form\EditPhotoUserType;
-use App\Form\ModificaionProfilType;
 use App\Form\ModificationProfilType;
-use App\Form\PostuleFormationType;
-use App\Repository\CandidatureRepository;
-use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+
     /**
      * @Route("/utilisateur", name="utilisateur")
      */
@@ -166,8 +164,8 @@ class UserController extends AbstractController
         $em->flush();
 
         $this->addFlash(
-           'message',
-           "Vous avez supprimer votre compte. Veuillez contacter l'adminisateur pour recuperer votre compte si necessaire"
+            'message',
+            "Vous avez supprimer votre compte. Veuillez contacter l'adminisateur pour recuperer votre compte si necessaire"
         );
 
         return $this->redirectToRoute('main');
