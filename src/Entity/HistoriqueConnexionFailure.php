@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=HistoriqueConnexionRepository::class)
  */
-class HistoriqueConnexion
+class HistoriqueConnexionFailure
 {
     /**
      * @ORM\Id
@@ -106,5 +106,4 @@ class HistoriqueConnexion
 
         return $this;
     }
-
 }

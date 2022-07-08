@@ -74,6 +74,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $telephone;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lastConnexion;
+
     public function __toString()
     {
         return $this->nom." ".$this->prenom;
@@ -314,6 +319,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getEmails(): Collection
     {
         return $this->emails;
+    }
+
+    public function getLastConnexion(): ?string
+    {
+        return $this->lastConnexion;
+    }
+
+    public function setLastConnexion(?string $lastConnexion): self
+    {
+        $this->lastConnexion = $lastConnexion;
+
+        return $this;
     }
 
 

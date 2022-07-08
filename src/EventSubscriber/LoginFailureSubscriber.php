@@ -7,9 +7,10 @@ use App\Repository\HistoriqueConnexionRepository;
 use DateTime;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 
-class LoginSubscriber implements EventSubscriberInterface
+class LoginFailureSubscriber implements EventSubscriberInterface
 {
     private HistoriqueConnexionRepository $historiqueConnexionRepo;
     private RequestStack $requestStack;
@@ -47,7 +48,7 @@ class LoginSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'security.authentication.success' => 'onSecurityAuthenticationSuccess',
+            'security.authentication.failure' => 'onSecurityAuthenticationFailure',
         ];
     }
 }
