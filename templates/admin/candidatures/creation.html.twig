@@ -1,10 +1,20 @@
-<h3>Ajouter une candidature</h3><br>
-{% form_theme form "bootstrap_4_layout.html.twig" %}
-<form method='POST' action="{{path("admin_candidature_creation")}}">
-	{{ form_widget(form) }}
-</form>
+{% extends "base.admin.html.twig" %}
+
+{% block titre %}Gestion des categorie
+{% endblock %}
+
+{% block body %}
+
+<div class="card">
+	<div class="card-body float-center">
+		<h3>Ajouter une candidature</h3><br>
+		{% form_theme form "bootstrap_4_layout.html.twig" %}
+		<form method='POST' action="{{path("admin_candidature_creation")}}">
+			{{ form(form) }}
+		</form>
+	</div>
+</div>
 <script>
-	$( '.select2' ).select2( {
-		theme: 'bootstrap-5'
-	} );
+	$('.select2').select2({theme: 'bootstrap-5'});
 </script>
+{% endblock %}
