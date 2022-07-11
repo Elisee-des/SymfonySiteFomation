@@ -43,3 +43,4 @@ class CandidatureController extends AbstractController
         return $this->redirectToRoute('utilisateur_candidature_liste');
     }
 }
+ 
