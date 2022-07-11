@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -19,7 +20,7 @@ class EditFormationType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description', CKEditorType::class, [
+            ->add('description', TextareaType::class, [
                 'label'=> 'Description'
             ])
             ->add('photoFile', FileType::class, [

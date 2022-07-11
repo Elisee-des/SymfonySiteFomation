@@ -56,6 +56,9 @@ class CandidatureType extends AbstractType
             ])
             ->add('cv', FileType::class, [
                 'label' => 'CV',
+                "attr" => [
+                    "class" => "form-control",
+                ],
                 "constraints" => [
                     new File([
                         "maxSize" => "2M",

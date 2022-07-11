@@ -2,16 +2,15 @@
 
 namespace App\Controller\Main;
 
-use App\Form\ContactMainType;
+use App\Form\ContactsType;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
-use Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 
 class MainController extends AbstractController
 {
@@ -20,27 +19,28 @@ class MainController extends AbstractController
      */
     public function index(Request $request, CategorieRepository $categorieRepository): Response
     {
-        $form = $this->createForm(ContactMainType::class);
 
-        $contact = $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            
-            $sujet = $contact->get('sujet')->getData();
-            $message = $contact->get('message')->getData();
+        // $form = $this->createForm(ContactMainType::class);
 
-            $mail = new Mail();
-            $mail->sendToAdmin($message, $sujet);
+        // $contact = $form->handleRequest($request);
 
-            $this->addFlash(
-               'message',
-               'Votre email a bien ete envoyez. nous recontacterons sous peu'
-            );
-        }
+        // if ($form->isSubmitted() && $form->isValid()) { 
+
+        //     $sujet = $contact->get('sujet')->getData();
+        //     $message = $contact->get('message')->getData();
+
+        //     $mail = new Mail();
+        //     $mail->sendToAdmin($message, $sujet);
+
+        //     $this->addFlash(
+        //        'message',
+        //        'Votre email a bien ete envoyez. nous recontacterons sous peu'
+        //     );
+        // }
 
         return $this->render('main/index.html.twig', [
             "categories" => $categorieRepository->findAll(),
-            "form"=>$form->createView()
+            // "form"=>$form->createView()
         ]);
     }
 
@@ -76,15 +76,25 @@ class MainController extends AbstractController
     /**
      * @Route("/formation", name="formations")
      */
-    public function formation(FormationRepository $formationRepository, CategorieRepository $categorieRepository, CacheInterface $cacheInterface): Response
-    {
-        $formation = $cacheInterface->get("formation_liste_main", function (ItemInterface $itemInterface) use ($formationRepository) {
-            $itemInterface->expiresAfter(20);
-            return $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC']);
-        });
+    public function formation(
+        FormationRepository $formationRepository,
+        CategorieRepository $categorieRepository,
+        CacheInterface $cacheInterface,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        // $formation = $cacheInterface->get("formation_liste_main", function (ItemInterface $itemInterface) use ($formationRepository) {
+        //     $itemInterface->expiresAfter(20);
+        //     return $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC']);
+        // });
+
+        $donnes = $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC']);
+
+        $formation = $paginator->paginate($donnes, $request->query->getInt('page', 1), 3);
+
 
         return $this->render('main/formation.html.twig', [
-            "formations" => $formationRepository->findBy(["isActif" => true], ["datePublication" => 'DESC'])
+            "formations" => $formation
         ]);
     }
 
@@ -119,4 +129,21 @@ class MainController extends AbstractController
         return " cool";
     }
 
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(Request $request): Response
+    {
+        $form = $this->createForm(ContactsType::class);
+        
+        $form->handleRequest($request);
+        
+        dd($request);
+        if ($form->isSubmitted() && $form->isValid()) { 
+        }
+
+        return $this->render('main/contacts.html.twig', [
+            "form"=> $form->createView()
+        ]);
+    }
 }

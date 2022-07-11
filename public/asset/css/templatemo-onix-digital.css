@@ -394,7 +394,7 @@ header
 }
 
 .header-area .main-nav .logo {
-  line-height: 100px;
+  line-height: 70px;
   color: #fff;
   font-size: 28px;
   font-weight: 700;
@@ -818,6 +818,8 @@ header
 @media (min-width: 767px) {
   .header-area .main-nav .nav {
     display: flex !important;
+    /* align-content: space-between !important; */
+    justify-content: flex-end !important;
   }
 }
 

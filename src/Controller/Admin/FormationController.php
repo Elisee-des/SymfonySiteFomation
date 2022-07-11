@@ -79,7 +79,7 @@ class FormationController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'message',
+                'success',
                 "la formation" . $formation->getTitre() . "a ete creer avec success"
             );
 
@@ -117,7 +117,7 @@ class FormationController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'message',
+                'success',
                 "la formation" . $formation->getTitre() . "a ete modifier avec success"
             );
 
@@ -138,7 +138,7 @@ class FormationController extends AbstractController
         $em->flush();
 
         $this->addFlash(
-            'message',
+            'success',
             "la formation" . $formation->getTitre() . "a ete supprimer avec success"
         );
 
@@ -184,7 +184,7 @@ class FormationController extends AbstractController
         $formation->setIsActif(true);
         $em->flush();
         $this->addFlash(
-            'message',
+            'success',
             "Vous avez activer la formation. Celle-ci s'affichera dans la liste des formations disponible"
         );
 
@@ -203,7 +203,7 @@ class FormationController extends AbstractController
             $formation->setIsActif(false);
             $em->flush();
             $this->addFlash(
-                'message',
+                'success',
                 "Vous avez descativer la formation. Celle-ci n'apparaitera pas dans la liste des formations disponible"
             );
 

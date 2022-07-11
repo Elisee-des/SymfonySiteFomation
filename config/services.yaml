@@ -17,6 +17,7 @@ services:
         bind:
             $fichiers_directory: '%fichiers_directory%'
             $excel_directory: '%excel_directory%'
+            $images_directory: '%images_directory%'
     
     App\Services\UploaderFichiers:
         arguments:

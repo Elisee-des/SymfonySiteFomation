@@ -1,17 +1,10 @@
-{% extends "base.admin.html.twig" %}
-
-{% block titre %}Gestion des formations
-{% endblock %}
-
-{% block body %}
-
-	<div class="card">
-		<div class="card-body float-center">
-			<h3>Ajouter une formation</h3><br>
-			{% form_theme form "bootstrap_4_layout.html.twig" %}
-
-			{{ form(form) }}
-
-			</div>
-		</div>
-	{% endblock %}
+<h3>Ajouter une utilisateur</h3><br>
+{% form_theme form "bootstrap_4_layout.html.twig" %}
+<form method='POST' action="{{path("admin_utilisateur_creation")}}">
+	{{ form_widget(form) }}
+</form>
+<script>
+	$( '.select2' ).select2( {
+		theme: 'bootstrap-5'
+	} );
+</script>
